@@ -1,9 +1,17 @@
 # 《C Peimer Plus（第6版）》每章课后练习题
-书名：[《C Primer Plus(第6版)(中文版)》](https://book.douban.com/)subject/26792521/
-- 第二章：练习基本输出
-- 第三章：介绍关键字
+书名：[《C Primer Plus(第6版)(中文版)》](https://book.douban.com/subject/26792521/)
+- 第二章：<br>
+	练习基本输出
+- 第三章：<br>
+	介绍关键字<br>
 	介绍`size()`运算符
 	介绍数据类型
-- 第四章：使用函数`strlen()`计算字符串长度
-	使用C处理器指令`#define`和ANSIC的`const`修饰符创建符号变量
+- 第四章：<br>
+	使用函数`strlen()`计算字符串长度<br>
+	使用C处理器指令`#define`和ANSIC的`const`修饰符创建符号变量<br>
 	使用输入函数`scanf()`和输出函数`printf()`进行交互、格式化输出
+- 第五章：<br>
+	介绍`普通数学运算符`、`++`、`--`、`%`、`类型名`等运算符及其优先级<br>
+	while循环<br>
+	复合语句、自动类型转换和强制类型转换<br>
+	带参数的函数

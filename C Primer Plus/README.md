@@ -23,3 +23,4 @@
 	编写具有返回值的函数
 - 有点困难的题目：<br>
 	/Chapter6/6-15.c<br>
+	/Chapter7/example7-4.c<br>

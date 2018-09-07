@@ -24,3 +24,5 @@
 - 有点困难的题目：<br>
 	/Chapter6/6-15.c<br>
 	/Chapter7/example7-4.c<br>
+	/Chapter8/8-6.c<br>
+	/Chapter8/8-7.c<br>

@@ -26,3 +26,4 @@
 	/Chapter7/example7-4.c<br>
 	/Chapter8/8-6.c<br>
 	/Chapter8/8-7.c<br>
+	/Chapter8/8-8.c<br>

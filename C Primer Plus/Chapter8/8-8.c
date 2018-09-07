@@ -9,14 +9,20 @@ int main(void) {
     float num_1;
     float num_2;
     while ((ch = get_choice()) != 'q') {
-        printf("Enter first number:");
+        printf("Enter first number:\n");
         while ((scanf("%f", &num_1)) != 1) {
-            printf("%s is not an number.", num_1);
+            while (getchar() != '\n') {
+                continue;
+            }
+            printf("The enter not an number.\n");
             printf("Please enter a number, such as 2.5, -1.78E8, or 3:");
         }
         printf("Enter second number:");
         while ((scanf("%f", &num_2)) != 1) {
-            printf("%s is not an number.\n", num_2);
+            while (getchar() != '\n') {
+                continue;
+            }
+            printf("The enter not an number.\n");
             printf("Please enter a number, such as 2.5, -1.78E8, or 3:");
         }
         if ((ch == 'a') || (ch == 's') || (ch == 'm')) {
@@ -30,7 +36,12 @@ int main(void) {
             }
             compute(ch, num_1, num_2);
         }
+        while (getchar() != '\n') {
+            continue;
+        }
     }
+    printf("Bye.");
+    return 0;
 }
 
 char get_choice(void) {
@@ -41,7 +52,7 @@ char get_choice(void) {
     printf("q. quit\n");
     ch = getchar();
     printf("************ %c\n", ch);
-    while ((ch != 'a') && (ch != 's') && (ch != 'm') && (ch != 'd')) {
+    while ((ch != 'a') && (ch != 's') && (ch != 'm') && (ch != 'd') && (ch != 'q')) {
         printf("ERROR INPUT!\n");
         ch = first_char();
     }
@@ -52,12 +63,16 @@ void compute(char m, float x, float y) {
     switch (m) {
         case 'a':
             printf("%f + %f = %f\n", x, y, x+y);
+            break;
         case 's':
             printf("%f - %f = %f\n", x, y, x-y);
+            break;
         case 'm':
             printf("%f * %f = %f\n", x, y, x*y);
+            break;
         case 'd':
             printf("%f / %f = %f\n", x, y, x/y);
+            break;
     }
 }
 
@@ -69,3 +84,6 @@ char first_char(void) {
     }
     return ch;
 }
+
+
+

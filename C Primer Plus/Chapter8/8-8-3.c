@@ -1,4 +1,4 @@
-//code bt http://blog4jimmy.com/2017/10/43.html
+//code by http://blog4jimmy.com/2017/10/43.html
 
 #include <libintl.h>
 #define ABS_VAL 0.000001

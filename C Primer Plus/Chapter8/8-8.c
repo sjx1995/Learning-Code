@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 char get_choice(void);
-char first_char(void);
 void compute(char m, float x, float y);
+float get_float(void);
 
 int main(void) {
     int ch;
@@ -10,21 +11,9 @@ int main(void) {
     float num_2;
     while ((ch = get_choice()) != 'q') {
         printf("Enter first number:\n");
-        while ((scanf("%f", &num_1)) != 1) {
-            while (getchar() != '\n') {
-                continue;
-            }
-            printf("The enter not an number.\n");
-            printf("Please enter a number, such as 2.5, -1.78E8, or 3:");
-        }
+        num_1 = get_float();
         printf("Enter second number:");
-        while ((scanf("%f", &num_2)) != 1) {
-            while (getchar() != '\n') {
-                continue;
-            }
-            printf("The enter not an number.\n");
-            printf("Please enter a number, such as 2.5, -1.78E8, or 3:");
-        }
+        num_2 = get_float();
         if ((ch == 'a') || (ch == 's') || (ch == 'm')) {
             compute(ch, num_1, num_2);
         } else if ((ch == 'd') && (num_2 != 0)) {
@@ -32,7 +21,7 @@ int main(void) {
         } else if ((ch == 'd') && (num_2 == 0)) {
             while (num_2 == 0) {
                 printf("Enter a number other than 0:");
-                scanf("%f", &num_2);
+                num_2 = get_float();
             }
             compute(ch, num_1, num_2);
         }
@@ -41,6 +30,7 @@ int main(void) {
         }
     }
     printf("Bye.");
+    system("PAUSE");
     return 0;
 }
 
@@ -50,11 +40,13 @@ char get_choice(void) {
     printf("a. add           s. subtract\n");
     printf("m. multiply      d. divide\n");
     printf("q. quit\n");
-    ch = getchar();
-    printf("************ %c\n", ch);
     while ((ch != 'a') && (ch != 's') && (ch != 'm') && (ch != 'd') && (ch != 'q')) {
-        printf("ERROR INPUT!\n");
-        ch = first_char();
+        printf("ERROR INPUT! ENTER AGAIN!\n");
+        ch = getchar();
+        while (getchar() != '\n') {
+            continue;
+
+        }
     }
     return ch;
 }
@@ -76,14 +68,14 @@ void compute(char m, float x, float y) {
     }
 }
 
-char first_char(void) {
-    int ch;
-    ch = getchar();
-    while (ch != '\n') {
-        continue;
+float get_float(void) {
+    float x;
+    while ((scanf("%f", &x)) != 1) {
+        while (getchar() != '\n') {
+            continue;
+        }
+        printf("The enter not an number.\n");
+        printf("Please enter a number, such as 2.5, -1.78E8, or 3:");
     }
-    return ch;
+    return x;
 }
-
-
-

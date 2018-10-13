@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>倒序数组</title>
+</head>
+<body>
+<script>
+    var arr = [10, 20, 30, 40, 50];
+    // 方法一
+    var newArr1 = new Array();
+    j = arr.length - 1;
+    for (var i = 0; i < arr.length; i++) {
+        newArr1[j] = arr[i];
+        j--;
+    }
+    // 方法二
+    var newArr2 = arr;
+    var temp = 0;
+    for (var k = 0; k < (newArr2.length / 2); k++) {
+        temp = newArr2[k];
+        newArr2[k] = newArr2[newArr2.length - k - 1];
+        newArr2[newArr2.length - k - 1] = temp;
+    }
+
+    document.write("倒序数组1："+newArr1+"<br>");
+    document.write("倒序数组2：" + newArr2);
+
+</script>
+</body>
+</html>

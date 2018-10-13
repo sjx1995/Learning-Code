@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡排序</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 冒泡排序
+    * 把一组数据按照由大到小（或由小到大）的顺序排序
+    *
+    * */
+
+    // 由小到大排列
+    var arr1 = [1, 5.3, 12, 59.5, 65, 42, 12.8, 38, 95.5, 42.6, 7.2, 10.6];
+    for (var i = 0; i < arr1.length; i++) {
+        for (var j = 0; j < arr1.length - i - 1; j++) {
+            if (arr1[j] > arr1[j + 1]) {
+                var temp1 = arr1[j + 1];
+                arr1[j + 1] = arr1[j];
+                arr1[j] = temp1;
+            }
+        }
+    }
+    document.write("由小到大排序：" + arr1 + "<br>");
+
+    // 由大到小排列
+    var arr2 = [1, 5.3, 12, 59.5, 65, 42, 12.8, 38, 95.5, 42.6, 7.2, 10.6];
+    for (var p = 0; p < arr2.length; p++) {
+        for (var q = 0; q < arr2.length - p - 1; q++) {
+            if (arr2[q] < arr2[q + 1]) {
+                var temp2 = arr2[q];
+                arr2[q] = arr2[q + 1];
+                arr2[q + 1] = temp2;
+            }
+        }
+    }
+    document.write("由大到小排列：" + arr2);
+</script>
+</body>
+</html>

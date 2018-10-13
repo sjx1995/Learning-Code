@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>去除重复的0</title>
+</head>
+<body>
+<script>
+    var arr = [10, 0, 20, 0, 30, 0, 40];
+    var newArr = new Array();
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] != 0) {
+            newArr[newArr.length] = arr[i]
+        }
+    }
+    document.write(newArr);
+</script>
+</body>
+</html>

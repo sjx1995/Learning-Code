@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预解析和局部作用域的问题</title>
+</head>
+<body>
+
+<script>
+
+    /*
+    * 函数预解析：提前解析代码
+    * 在代码解析之前，把变量和函数的声明提前到所在作用域的最上面
+    *
+    * 作用域链：
+    * 在一个函数中使用一个变量，先在函数中找，找到则使用，找不到则继续向外依次寻找，一直到全局变量，若仍然没有，则值为undefined
+    * */
+
+
+    var num = 20;
+    f0();
+    function f0() {
+        console.log(num);       //undefined
+        var num = 10;
+    }
+
+    /*
+    *
+    * 运行结果：
+    *   undefined
+    *
+    * 原因：由于预解析，将变量num和函数f0()的定义提前至函数f0()调用之前
+    * 所以原函数可以看作：
+    *   var num;
+    *   function f0() {
+    *       var num;
+    *       console.log(num);
+    *       num=10;
+    *    }
+    *    num = 20;
+    *    f0();
+    *
+    *    第42行调用函数f0()，函数中num只定义没有赋值，所以第37行输出时值为undefined
+    *
+    *    需要注意的是:
+    *       函数执行到第38行需要输出时，寻找变量num，是从内向外的，先在函数内寻找（若没有才去函数外寻找）
+    *    所以此时num在第37行没有赋值，所以num值为undefined
+    *
+    * */
+
+    f1();
+    console.log(c);     //9
+    console.log(b);     //9
+    console.log(a);     //undefined
+
+    function f1() {
+        var a = b = c = 9;
+        console.log(a);     //9
+        console.log(b);     //9
+        console.log(c);     //9
+    }
+
+    /*
+    *
+    * 输出结果：
+    *   9
+    *   9
+    *   9
+    *   9
+    *   9
+    *   报错:a is not defined
+    *
+    * 原因：第57行函数定义会因为预解析提前到第47行前；
+    *       同时，第58行函数内变量声明预解析，可以看作：
+    *   var a = 0;
+    *   b=0;
+    *   c=0;
+    *
+    * 其中a为局部变量，外部不可访问
+    * b、c为隐式全局变量，外部可以访问
+    *
+    * 所以a没有定义
+    *
+    * */
+
+    f2();
+    var f2 = function () {
+        console.log("num");
+        var num = 10;
+    }
+    /*
+    *
+    * 输出结果：
+    *   报错：f2 is not a function
+    *
+    *  原因：第88行是用表达式的形式定义一个匿名函数，所以会预解析，程序可以写作：
+    *    var f2;
+    *    f2();
+    *    f2 = function () {
+    *       var num;
+    *       console.log(num);
+    *       num = 2;
+    *    }
+    *    f2 没有被定义为一个函数，所以无法调用
+    *
+    * */
+
+    console.log(f);
+    var f = 1;
+    function f() {
+        console.log(f);
+    }
+    console.log(f);
+    /*
+    *
+    * 输出结果：
+    *   f() { console.log(f); }
+    *   1
+    *
+    * 原因：因为预解析，函数可以看作：
+    *   var f;
+    *   function f() {
+    *       console.log(f);
+    *   }
+    *   console.log(f);
+    *   f = 1;
+    *   console.log(f);
+    *
+    *   因为第122行、123行分别定义了名为f的变量和名为f的函数，所以第126行输出了函数f()
+    *
+    * */
+
+
+</script>
+</body>
+</html>

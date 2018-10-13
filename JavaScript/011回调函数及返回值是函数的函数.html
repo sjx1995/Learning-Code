@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调函数</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 回调函数
+    * 函数可以作为参数使用，当一个函数被用作参数时，这个参数（函数）被称为回调函数
+    *
+    * */
+    function f1(fn) {
+        fn();
+    }
+    function f2() {
+        alert("CELLBACK FUNCTION !");
+    }
+    f1(f2);
+
+    /*
+    *
+    * 函数作为返回值使用
+    *
+    * */
+    function f3() {
+        console.log("f3()被调用了");
+        return function () {
+            document.write("这里是返回值");
+        }
+    }
+    var ff = f3();
+    ff();
+</script>
+</body>
+</html>

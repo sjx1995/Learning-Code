@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建对象的三种方法</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 创建对象的三种方法：
+    * 1.通过系统内置的构造函数创建对象
+    * 2.通过自定义构造函数创建对象
+    * 3.通过字面量的方式创建对象
+    *
+    * */
+
+    //通过系统内置的构造函数创建对象
+    //创建对象---实例化一个对象
+    var phone = new Object();
+    //对象的属性
+    phone.name = "iPhone";
+    phone.color = "白色";
+    //对象的方法
+    phone.call = function () {
+        console.log("我是" + this.color + "的" + this.name + "，我可以打电话");
+    }
+    //对象的调用
+    phone.call();
+
+    //系统构造函数创建的对象类型永远是Objext
+    console.log(phone instanceof Object);       //true
+
+
+    //通过自定义构造函数创建对象
+    //自定义构造函数
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.sayHi = function () {
+            console.log("我是" + this.name + "，我今年" + this.age + "岁了");
+        }
+    }
+    //实例化一个对象
+    /*
+    * 下面一行代码（对象实例化时）做了四件事：
+    *   1. 在内存中申请一个空闲的空间，以存放创建的对象
+    *   2. 将this设置为当前的对象
+    *   3. 设置对象的属性和方法
+    *   4. 将对象返回
+    * */
+    var teacher = new Person("李老师",35);
+    var stu = new Person("小明", 18);
+    teacher.sayHi();
+    stu["sayHi"]();
+
+    //自定义函数类型可以查询具体类型
+    console.log(stu instanceof Person);       //true
+
+
+    //通过字面量的方式创建对象  方法一：
+    var dog = {
+        name: "大黄",
+        age: 3,
+        wang: function () {
+            console.log("汪汪汪，我叫" + this.name + "，我" + this.age + "岁了");
+        }
+    }
+    dog.wang();
+
+    //通过字面量的方式创建对象  方法二：
+    var cat = {};
+    cat.name="多多";
+    cat.age=4;
+    cat.miao=function () {
+        console.log("喵喵喵怕，我是"+this.name+"，我"+this.age+"岁了");
+    };
+    cat.miao();
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arguments伪数组</title>
+</head>
+<body>
+
+<script>
+    /*
+    *
+    * arguments可以获取传入函数的参数个数
+    * arguments是一个对象
+    * arguments是一个伪数组
+    * arguments[标记]就是参数的值
+    *
+    * */
+
+    function getSum(arr) {
+        var sum=0;
+        for (var i=0;i<arguments.length;i++){
+            sum+=arguments[i];
+        }
+        return sum;
+    }
+
+    document.write("这些数字的和："+getSum(10,20,30,20,10,20))
+</script>
+</body>
+</html>

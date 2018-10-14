@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>找到字符串中所有a的位置</title>
+</head>
+<body>
+<script>
+    var str = "JavaScript is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm.";
+    document.write("<p>在字符串“" + str + "”中</p>");
+    // 字母所在位置
+    var position = 0;
+    // 字母出现次数
+    var i = 1;
+    // 结束条件：如果找不到，indexOf()返回值为-1
+    while (position != -1) {
+        // 在position的位置开始找
+        position = str.indexOf("a", position);
+        // 如果找到则输出
+        if (position != -1) {
+            document.write("<p>a字母第" + i + "次出现在第" + (position + 1) + "个字母上</p>");
+            // 如果找到次数=1
+            i++;
+            // 如果找到，位置+1(其实应该加要寻找的关键字的length，a长度为1，所以++)，即从下一个位置开始寻找，不然就是死循环
+            position++;
+        }
+    }
+</script>
+</body>
+</html>

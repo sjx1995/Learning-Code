@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现内置Math.max的方法</title>
+</head>
+<body>
+<script>
+    // 定义构造函数
+    function myMath() {
+        this.getMax = function () {
+            var max = arguments[0];
+            for (var i = 1; i < arguments.length; i++) {
+                if (arguments[i] > max) {
+                    max = arguments[i];
+                }
+            }
+            return max;
+        };
+    }
+
+    // 实例化对象
+    var myMathMax = new myMath();
+    // 调用函数
+    var result = myMathMax.getMax(20, 30, 50, 40, 1, 85, 25, 9, 54, 32);
+    console.log("最大值：" + result);
+</script>
+</body>
+</html>

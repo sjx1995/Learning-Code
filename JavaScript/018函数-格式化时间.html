@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function getTime(dt) {
+        //获取日期
+        var year = dt.getFullYear();
+        var month = dt.getMonth() + 1;
+        var day = dt.getDate();
+        var hour = dt.getHours();
+        var min = dt.getMinutes();
+        var sec = dt.getSeconds();
+        var week = dt.getDay();
+        //将星期转化为汉字格式
+        switch (week) {
+            case 1:
+                week = "一";
+                break;
+            case 2:
+                week = "二";
+                break;
+            case 3:
+                week = "三";
+                break;
+            case 4:
+                week = "四";
+                break;
+            case 5:
+                week = "五";
+                break;
+            case 6:
+                week = "六";
+                break;
+            case 0:
+                week = "日";
+                break;
+        }
+        //月日时分秒小于10时，补0显示两位
+        month = month < 10 ? "0" + month : month;
+        day = day < 10 ? "0" + day : day;
+        hour = hour < 10 ? "0" + hour : hour;
+        min = min < 10 ? "0" + min : min;
+        sec = sec < 10 ? "0" + sec : sec;
+
+        return year + "年" + month + "月" + day + "日 " + hour + ":" + min + ":" + sec + " 星期" + week;
+    }
+
+    document.write("打开页面时间：" + getTime(new Date()));
+</script>
+</body>
+</html>

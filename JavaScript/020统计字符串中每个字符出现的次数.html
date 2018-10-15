@@ -7,25 +7,25 @@
 <body>
 <script>
     var str = "JavaScript is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm.";
-    document.write("<p>在字符串“"+str+"”中</p>");
+    document.write("<p>在字符串“" + str + "”中</p>");
     // 创建一个空对象，字母及其出现次数可以看作一个键值对
-    var obj=new Object();
+    var obj = new Object();
     // 遍历字符串，找到每一个字符
-    for (var i=0;i<str.length;i++){
-        var key=str[i];
+    for (var i = 0; i < str.length; i++) {
+        var key = str[i];
         // 判断一个属性key是否在对象obj中存在，可以用if(obj[key]){ }判断
         // 如果字符已经在对象中存在，则让其值+1
-        if (obj[key]){
+        if (obj[key]) {
             obj[key]++;
         }
         // 如果字符在对象中不存在，则创建新的键值对，并使其值为1
         else {
-            obj[key]=1;
+            obj[key] = 1;
         }
     }
     // 遍历对象，输出每一个键值对
-    for(var key in obj){
-        document.write("<p>字符“"+key+"”出现了 "+obj[key]+" 次</p>");
+    for (var key in obj) {
+        document.write("<p>字符“" + key + "”出现了 " + obj[key] + " 次</p>");
     }
 </script>
 </body>

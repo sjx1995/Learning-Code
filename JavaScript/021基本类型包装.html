@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本包装类型的</title>
+</head>
+<body>
+<script>
+    /*
+    * 普通变量不能调用属性和方法
+    * 对象可以直接调用属性和方法
+    *
+    * 基本包装类型：本来是基本类型，在代码执行过程中调用了方法或者属性，它就变成了基本包装类型，这个变量也不是普通类型的变量，而是基本包装类型的对象
+    * 基本类型：number string boolean
+    * */
+    // str是普通类型
+    var str = "hello world";
+    // str.replace()中的str是对象，因为调用了方法，而这样的对象的类型是叫做基本包装类型
+    str = str.replace("h", "H");
+    console.log(str);
+
+
+    /*
+    * 当一个 对象&&true 时，结果为true
+    * 当一个 true&&对象 时，结果为对象
+    * */
+    // 此时flag变量是个基本包装类型，因为后面创建了布尔类型的对象
+    var flag = new Boolean(false);
+    var result1 = flag && true;
+    console.log(result1);    //true
+    var result2 = true && flag;
+    console.log(result2);    //Boolean{false}
+
+
+    var num = 10;   //基本类型
+    var num = Number("10");   //类型转换
+    var num = new Number("10");   //基本包装类型
+
+
+</script>
+</body>
+</html>

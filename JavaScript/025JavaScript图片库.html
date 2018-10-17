@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--说明-->
+    <!--案例是《JavaScript DOM 编程艺术（第二版）》第四章案例
+    根据书中的效果图，根据自己的理解，修改部分js代码，实现一致的功能，并且将js和html代码分离
+    为了方便，案例将css和js代码全部写在HTML文件中，图片在image文件夹下-->
+
+    <meta charset="UTF-8">
+    <title>JavaScript图片库</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .box {
+            width: 600px;
+            height: 450px;
+            margin: 100px auto;
+            padding: 10px 50px;
+            border: 2px solid black;
+            background-color: #f0f3ef;
+        }
+
+        h1 {
+            line-height: 100px;
+        }
+
+        li {
+            list-style: none;
+            display: inline-block;
+            margin-left: 10px;
+            line-height: 70px;
+            font-size: 18px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h1>Snapshots</h1>
+    <ul>
+        <li><a href="./images/坎布拉.jpg" title="西藏-坎布拉国家森林公园">坎布拉</a></li>
+        <li><a href="./images/雪原.jpg" title="雪原美景">雪原</a></li>
+        <li><a href="./images/栈桥.jpg" title="青岛著名景点：栈桥">栈桥</a></li>
+        <li><a href="./images/长城.jpg" title="世界七大奇迹之一：万里长城">长城</a></li>
+    </ul>
+    <div>
+        <img src="./images/底图.png" alt="">
+    </div>
+    <p id="description">请选择一张图片</p>
+</div>
+<script>
+    // 获取所有a标签，aTag是一个伪数组
+    var aTag = document.getElementsByTagName("a");
+    // 遍历数组，注册点击事件
+    for (var i = 0; i < aTag.length; i++) {
+        aTag[i].onclick = function () {
+            // 获取被点击的链接的地址和描述
+            var link = this.getAttribute("href");
+            var text = this.getAttribute("title");
+            // 获取图片元素
+            var img = document.getElementsByTagName("img")[0];
+            // 用点击的链接的地址替换底图的地址
+            img.setAttribute("src", link);
+            // 获取图片描述
+            var description = document.getElementById("description");
+            // 用图片的描述替换默认的文本
+            description.firstChild.nodeValue = text;
+            // 函数返回false，告诉浏览器点击事件没有成功，防止浏览器跳转
+            return false;
+        };
+
+    }
+</script>
+</body>
+</html>

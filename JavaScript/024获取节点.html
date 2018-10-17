@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取节点</title>
+</head>
+<body>
+<div class="box">
+    <ul class="food">
+        a
+        <li class="apple">苹果</li>
+        b
+        <li class="banana">香蕉</li>
+        c
+        <li class="orange">橘子</li>
+        d
+        <li class="pear">梨子</li>
+        e
+        <li class="durian">榴莲</li>
+        f
+    </ul>
+</div>
+<script>
+    var foodObject = document.getElementsByClassName('food')[0];
+    var orangeObject=document.getElementsByClassName('orange')[0];
+    // 获取父级节点
+    console.log(foodObject.parentNode);
+    // 获取父级元素
+    console.log(foodObject.parentElement);
+    // 获取子级节点
+    console.log(foodObject.childNodes);
+    // 获取子级元素
+    console.log(foodObject.children);
+    // 获取第一个子节点
+    console.log(foodObject.firstChild);
+    // 获取第一个子元素
+    console.log(foodObject.firstElementChild);
+    // 获取最后一个子节点
+    console.log(foodObject.lastChild);
+    // 获取最后一个子元素
+    console.log(foodObject.lastElementChild);
+    // 获取前一个兄弟节点
+    console.log(orangeObject.previousSibling);
+    // 获取前一个兄弟元素
+    console.log(orangeObject.previousElementSibling);
+    // 获取后一个兄弟节点
+    console.log(orangeObject.nextSibling);
+    // 获取后一个兄弟元素
+    console.log(orangeObject.nextElementSibling);
+
+</script>
+</body>
+</html>

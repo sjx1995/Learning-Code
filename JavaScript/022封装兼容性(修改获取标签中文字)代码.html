@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装兼容性(修改获取标签中文字)代码</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 100px 200px;
+        }
+
+        #text {
+            color: #cccccc;
+            padding-left: 5px;
+            margin-right: 40px;
+        }
+
+        div {
+            margin-top: 10px;
+            height: 200px;
+            width: 400px;
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<input type="text" value="请输入文字" id="text">
+<input type="button" value="Change Text" id="btn">
+<input type="button" value="Get Text From DIV" id="gettext">
+<div id="textArea">在上方的文字框中输入文字,以改变此处文字</div>
+<script>
+    // 搜索框根据鼠标焦点判断用户输入情况
+    document.getElementById("text").onfocus = function () {
+        if (this.value == "请输入文字") {
+            this.value = "";
+            this.style.color = "black";
+        }
+    }
+    document.getElementById("text").onblur = function () {
+        if (this.value.length == 0) {
+            this.value = "请输入文字";
+            this.style.color = "#ccc";
+        }
+    }
+
+    /*
+    *
+    * nnerText可以在标签之间插入文字，Chrome、Firefox、IE8都支持支持，但是低版本的Firefox不支持
+    * textContent可以在标签之间插入文字， Chrome、Firefox、支持，IE8不支持
+    *
+    * 如果一个属性在浏览器中不被支持，那么它的类型是undefined
+    * 判断一个属性是否被该浏览器支持，测试这个属性的类型是不是undefined旧可以了
+    *
+    * */
+
+    function setText(element, text) {
+        if (typeof element.textContent == "undefined") {
+            element.innerText = text;
+        } else {
+            element.textContent = text;
+        }
+    }
+
+    function getText(element) {
+        if (typeof element.textContent == "undefined") {
+            return element.innerText;
+        } else {
+            return element.textContent;
+        }
+    }
+
+    // 测试
+    document.getElementById("btn").onclick = function () {
+        setText(document.getElementById("textArea"), document.getElementById("text").value);
+    };
+    document.getElementById("gettext").onclick = function () {
+        alert("从文本框中获取到的文字：" + getText(document.getElementById("textArea")));
+    }
+
+</script>
+</body>
+</html>

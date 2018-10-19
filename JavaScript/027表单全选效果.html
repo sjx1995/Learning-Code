@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单全选效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+        }
+
+        .box {
+            height: 350px;
+            width: 550px;
+            border: 2px solid #000000;
+            margin: 100px auto;
+            background-color: #f0f3ef;
+            text-align: center;
+        }
+
+        table {
+            margin: 40px auto;
+            background-color: #cccccc;
+        }
+
+        th, td {
+            padding: 10px 20px;
+        }
+
+        th {
+            background-color: lightskyblue;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <table border="black" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>
+                <input type="checkbox">
+            </th>
+            <th>菜名</th>
+            <th>价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>凉拌土豆丝</td>
+            <td>10元</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>西红柿炒鸡蛋</td>
+            <td>15元</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>糖醋里脊</td>
+            <td>30元</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox">
+            </td>
+            <td>北京烤鸭</td>
+            <td>80元</td>
+        </tr>
+        </tbody>
+    </table>
+    <p>点击选择框可以实现全选/取消全选/自动勾选全选效果</p>
+</div>
+<script>
+    // 分别获取thead、tbody中的input
+    var thInput = document.getElementsByTagName('thead')[0].getElementsByTagName('input')[0];
+    var tbInput = document.getElementsByTagName('tbody')[0].getElementsByTagName('input');
+    // 为thead中的input注册点击事件，让tbody中的input的checked属性的值和thead中的checked属性值相同，即实现全选、取消全选的功能
+    thInput.onclick = function () {
+        for (var i = 0; i < tbInput.length; i++) {
+            tbInput[i].checked = thInput.checked;
+        }
+    };
+    // 实现自动勾选、取消"全选按钮"功能
+    // 为每个tbody中的input添加单击事件
+    for (var j = 0; j < tbInput.length; j++) {
+        tbInput[j].onclick = function () {
+            // 添加标志，假设tbody中的所有项目都被勾选
+            var bool = true;
+            // 循环遍历tbody中的input，检查tbody中每个input是否都被勾选：
+            // 如果都被勾选，则不执行之后的代码，bool的值为true
+            // 如果有input没有被勾选，则将标志bool的值设为false，之后跳出循环，此时bool的值为false
+            // bool的值为true时，thead中的input被勾选；bool的值为false时，thead中的input没有被勾选
+            for (var k = 0; k < tbInput.length; k++) {
+                if (tbInput[k].checked == false) {
+                    bool = false;
+                    break;
+                }
+            }
+            thInput.checked = bool;
+        };
+    }
+</script>
+</body>
+</html>

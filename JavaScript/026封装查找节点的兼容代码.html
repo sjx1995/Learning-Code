@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装查找节点的兼容代码</title>
+</head>
+<body>
+<script>
+    /*
+    * 封装查找父元素的第一个子元素的兼容代码
+    * 因为.firstElementChild方法只支持Chrome、Firefox，但不支持IE8
+    * 所以如果浏览器支持.firstElementChild方法，则调用此方法
+    * 如果浏览器不支持.firstElementChild方法，则调用.firstChild方法
+    * 为了保证.firstChild方法返回正确的值，利用while循环确定.firstChild方法找到的节点是存在的，并且是元素类型
+    * */
+    function getFirstElementFromParent(element) {
+        if (element.firstElementChild) {
+            return element.firstElementChild;
+        } else {
+            var node = element.firstChild;
+            while (node && node.nodeType != 1) {
+                node = node.nextSibling;
+            }
+            return node;
+        }
+    }
+
+    /*
+    * 封装查找父级元素的最后一个子元素的兼容代码
+    * IE8不支持.lastElementChild方法，所以调用.lastChild方法
+    * 为了保证.lastChild方法返回正确的值，利用while循环确保.lastChild方法找到的节点是存在的，并且是元素类型
+    * */
+    function getLastElementFromParent(element) {
+        if (element.lastElementChild) {
+            return element.lastElementChild;
+        } else {
+            if (element.lastChild) {
+                var node = element.lastChild;
+                while (node && node.nodeType != 1) {
+                    node = node.previousSibling;
+                }
+                return node;
+            }
+        }
+    }
+
+    /*
+    * 封装获取前一个兄弟元素的兼容代码
+    * IE8不支持.previousElementSibling方法，所以调用.previousSibling方法
+    * 为了保证.previousSibling方法返回正确的值，利用while循环确保.previousSibling方法找到的节点存在，并且是元素类型
+    * */
+    function getPreviousElementSibling(element) {
+        if (element.previousElementSibling){
+            return element.previousElementSibling;
+        } else{
+            var node=element.previousSibling;
+            while (node&&node.nodeType!=1){
+                node=ndoe.previousSibling;
+            }
+            return node;
+        }
+    }
+
+    /*
+    * 封装获取后一个兄弟元素的兼容代码
+    * IE8不支持.nextElementSibling方法，所以调用.nextSibling方法
+    * 为了保证.nextSibling方法返回值正确，利用while循环保证.nextSibling方法找到的节点存在，并且是元素类型
+    * */
+    function getNextElementSibling(element) {
+        if (element.nextElementSibling){
+            return element.nextElementSibling;
+        }else{
+            var node=element.nextSibling;
+            while (node&&node.nodeType!=1){
+                node=node.nextSibling;
+            }
+            return node;
+        }
+    }
+</script>
+</body>
+</html>

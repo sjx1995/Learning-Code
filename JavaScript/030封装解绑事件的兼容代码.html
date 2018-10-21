@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>解绑事件的兼容代码</title>
+</head>
+<body>
+<input type="button" id="btn1" value="绑定两个事件，在控制台分别输出A和B">
+<input type="button" id="btn2" value="解绑第一个按钮的第一个事件">
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+    // 为任意的元素解绑任意的事件函数
+    // 参数：需要解绑事件的对象；需要解绑的事件类型；需要解绑的事件函数(必须是命名函数)
+    function removeEvent(element,type,fun) {
+        // .removeEventListener方法仅Firefox、Chrome、IE11支持
+        if (element.removeEventListener){
+            element.removeEventListener(type,fun,false);
+        }
+        // .detachEvent方法仅IE8支持
+        else if (element.detachEvent){
+            element.detachEvent("on"+type,fun);
+        }
+        // 对于都不支持浏览器，使用.onType=null的方式将方法指向空地址
+        else {
+            element["on"+type]=null;
+        }
+    }
+    // 第一个按钮需要绑定的两个事件
+    function printA() {
+        console.log("A");
+    }
+    function printB() {
+        console.log("B");
+    }
+    // 测试
+    // 绑定事件(代码见029)
+    function addEvent(element,type,fun) {
+        if(element.addEventListener){
+            element.addEventListener(type,fun,false);
+        }
+        else if (element.attachEvent){
+            element.attachEvent("on"+type,fun);
+        }
+        else{
+            element["on"+type]=fun;
+        }
+    }
+    addEvent(my$("btn1"),"click",printA);
+    addEvent(my$("btn1"),"click",printB);
+    //解绑按钮的第一个事件
+    my$("btn2").onclick=function () {
+        removeEvent(my$("btn1"),"click",printA);
+    }
+</script>
+</body>
+</html>

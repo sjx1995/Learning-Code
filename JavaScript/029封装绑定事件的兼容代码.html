@@ -15,6 +15,8 @@
     // 参数：绑定事件的对象名；绑定事件的方法名；绑定事件的类型(没有on)
     function addEvent(element,type,fun) {
         // .addEventListener方法，Firefox、Chrome支持
+        // 判断浏览器是否支持addEventListener，即element中是否存在addEventListener这个属性，addEventListener后不加括号。
+        // 如果写作addEventListener()，if判断的是函数的返回值
         if(element.addEventListener){
             element.addEventListener(type,fun,false)
         }

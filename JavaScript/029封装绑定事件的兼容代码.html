@@ -11,26 +11,28 @@
     function my$(id) {
         return document.getElementById(id);
     }
+
     // 任意对象绑定任意事件的函数
     // 参数：绑定事件的对象名；绑定事件的方法名；绑定事件的类型(没有on)
-    function addEvent(element,type,fun) {
+    function addEvent(element, type, fun) {
         // .addEventListener方法，Firefox、Chrome支持
         // 判断浏览器是否支持addEventListener，即element中是否存在addEventListener这个属性，addEventListener后不加括号。
         // 如果写作addEventListener()，if判断的是函数的返回值
-        if(element.addEventListener){
-            element.addEventListener(type,fun,false);
+        if (element.addEventListener) {
+            element.addEventListener(type, fun, false);
         }
         // .attachEvent方法，IE8支持
-        else if (element.attachEvent){
-            element.attachEvent("on"+type,fun);
+        else if (element.attachEvent) {
+            element.attachEvent("on" + type, fun);
         }
         // 若都不支持，则使用on+type形式注册事件
-        else{
-            element["on"+type]=fun;
+        else {
+            element["on" + type] = fun;
         }
     }
+
     //测试
-    addEvent(my$("btn"),"click",function () {
+    addEvent(my$("btn"), "click", function () {
         alert("绑定成功！");
     })
 </script>

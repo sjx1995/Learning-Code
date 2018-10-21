@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>动态生成列表</title>
     <style>
-        .btn{
+        .btn {
             width: 120px;
             height: 38px;
             margin: 20px auto;
@@ -12,11 +12,12 @@
             background-color: #03A9F4;
             border: 0;
             cursor: pointer;
-            box-shadow: 0 3px 11px 0 rgba(0,0,0,.4);
+            box-shadow: 0 3px 11px 0 rgba(0, 0, 0, .4);
             transition: box-shadow .2s;
         }
-        .btn:hover{
-            box-shadow: 0 0 2px 0 rgba(0,0,0,.4);
+
+        .btn:hover {
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, .4);
         }
     </style>
 </head>
@@ -29,46 +30,47 @@
     function my$(id) {
         return document.getElementById(id);
     }
+
     // 将table中的值以数组方式存储；数组的每一项以对象的形式存储
-    var tableArr=[
-        {name:"Google",href:"https://www.google.com"},
-        {name:"Facebook",href:"https://www.facebook.com"},
-        {name:"Baidu",href:"https://www.baidu.com"},
-        {name:"Sina",href:"https://www.sina.com"},
-        {name:"Github",href:"https://www.github.com"},
-        {name:"Gitlab",href:"https://www.gitlab.com"},
-        {name:"MySite",href:"https://sunly.in"}
+    var tableArr = [
+        {name: "Google", href: "https://www.google.com"},
+        {name: "Facebook", href: "https://www.facebook.com"},
+        {name: "Baidu", href: "https://www.baidu.com"},
+        {name: "Sina", href: "https://www.sina.com"},
+        {name: "Github", href: "https://www.github.com"},
+        {name: "Gitlab", href: "https://www.gitlab.com"},
+        {name: "MySite", href: "https://sunly.in"}
     ];
     // 创建列表
-    my$("btn1").onclick=function () {
+    my$("btn1").onclick = function () {
         // 如果div.displayTable的第一个子元素不存在，则创建，防止多次创建
-        if (!(my$("displayTable").firstChild)){
+        if (!(my$("displayTable").firstChild)) {
             // 创建table元素
-            var tableObj=document.createElement("table");
+            var tableObj = document.createElement("table");
             // 设置table的属性
-            tableObj.id="table";
-            tableObj.border="1";
-            tableObj.cellPadding="5";
-            tableObj.cellSpacing="0";
-            tableObj.style="margin:0 auto;";
+            tableObj.id = "table";
+            tableObj.border = "1";
+            tableObj.cellPadding = "5";
+            tableObj.cellSpacing = "0";
+            tableObj.style = "margin:0 auto;";
             //将table追加到div.dispalyTable中
             my$("displayTable").appendChild(tableObj);
             // 循环写入tr元素，并且追加到table中
-            for (var i=0;i<tableArr.length;i++){
-                var trObj=document.createElement("tr");
+            for (var i = 0; i < tableArr.length; i++) {
+                var trObj = document.createElement("tr");
                 tableObj.appendChild(trObj);
                 // 在每一个tr中创建两个td，并且写入在数组中对应的值
-                var tdObj1=document.createElement("td");
-                tdObj1.innerText=tableArr[i].name;
+                var tdObj1 = document.createElement("td");
+                tdObj1.innerText = tableArr[i].name;
                 trObj.appendChild(tdObj1);
-                var tdObj2=document.createElement("td");
-                tdObj2.innerHTML="<a href='"+tableArr[i].href+"'>点我进入"+tableArr[i].name+"</a>";
+                var tdObj2 = document.createElement("td");
+                tdObj2.innerHTML = "<a href='" + tableArr[i].href + "'>点我进入" + tableArr[i].name + "</a>";
                 trObj.appendChild(tdObj2);
             }
         }
     };
     // 删除列表
-    my$("btn2").onclick=function () {
+    my$("btn2").onclick = function () {
         my$("displayTable").removeChild(my$("table"));
     };
 </script>

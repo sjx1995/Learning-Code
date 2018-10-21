@@ -18,11 +18,11 @@
         // 判断浏览器是否支持addEventListener，即element中是否存在addEventListener这个属性，addEventListener后不加括号。
         // 如果写作addEventListener()，if判断的是函数的返回值
         if(element.addEventListener){
-            element.addEventListener(type,fun,false)
+            element.addEventListener(type,fun,false);
         }
         // .attachEvent方法，IE8支持
         else if (element.attachEvent){
-            element.attachEvent("on"+type,fun)
+            element.attachEvent("on"+type,fun);
         }
         // 若都不支持，则使用on+type形式注册事件
         else{

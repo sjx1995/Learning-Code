@@ -12,11 +12,11 @@
             background-color: #03A9F4;
             border: 0;
             cursor: pointer;
-            box-shadow: 0px 3px 11px 0px rgba(0,0,0,.4);
+            box-shadow: 0 3px 11px 0 rgba(0,0,0,.4);
             transition: box-shadow .2s;
         }
         .btn:hover{
-            box-shadow: 0px 0px 2px 0px rgba(0,0,0,.4);
+            box-shadow: 0 0 2px 0 rgba(0,0,0,.4);
         }
     </style>
 </head>
@@ -38,7 +38,7 @@
         {name:"Github",href:"https://www.github.com"},
         {name:"Gitlab",href:"https://www.gitlab.com"},
         {name:"MySite",href:"https://sunly.in"}
-    ]
+    ];
     // 创建列表
     my$("btn1").onclick=function () {
         // 如果div.displayTable的第一个子元素不存在，则创建，防止多次创建
@@ -50,7 +50,7 @@
             tableObj.border="1";
             tableObj.cellPadding="5";
             tableObj.cellSpacing="0";
-            tableObj.style="margin:0 auto;"
+            tableObj.style="margin:0 auto;";
             //将table追加到div.dispalyTable中
             my$("displayTable").appendChild(tableObj);
             // 循环写入tr元素，并且追加到table中

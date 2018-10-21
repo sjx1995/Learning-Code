@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件冒泡和事件阶段</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .div3 {
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            border: 1px solid #000000;
+            background-color: red;
+        }
+
+        .div2 {
+            width: 400px;
+            height: 120px;
+            line-height: 120px;
+            border: 1px solid #000000;
+            background-color: orange;
+        }
+
+        .div1 {
+            width: 600px;
+            height: 140px;
+            line-height: 140px;
+            border: 1px solid #000000;
+            background-color: yellow;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="div1" id="div1">
+    <div class="div2" id="div2">
+        <div class="div3" id="div3"></div>
+    </div>
+</div>
+<script>
+    /*
+
+    * 事件冒泡：
+    * 当嵌套的元素被注册了相同的事件时，子级元素的事件被触发，父级元素的事件会自动触发
+    *
+    * 时间分为三个阶段：
+    * 1. 事件捕获阶段：从外向内
+    * 2. 事件目标阶段：用户选择的目标，不一定最先出现
+    * 3. 事件冒泡阶段：从内向外
+    *
+    * .addEventListener()的第三个参数控制事件阶段：true是事件捕获阶段；false是事件冒泡阶段
+    * 一般使用冒泡阶段
+    *
+    * 例子：点击div，对应的弹出颜色。因为事件冒泡，所以当点击里面的盒子时，外面的盒子的颜色也会被弹出
+    *       同时提示事件阶段。
+    * */
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    // 注册事件
+    function addEvent(element, type, fun) {
+        if (element.addEventListener) {
+            // 可修改false为true,如此做是事件捕获阶段
+            element.addEventListener(type, fun, true);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, fun);
+        } else {
+            element["on" + type] = fun;
+        }
+    }
+
+    // 此处e是事件参数处理对象，Firefox中可以用任意参数指代
+    // IE不支持这种写法,IE8使用window.event指代事件处理参数对象
+    // Chrome两者都支持
+    function alertRed(e) {
+        alert("红色的盒子！事件阶段：" + eventPhase(e.eventPhase));
+    }
+
+    function alertOrange(e) {
+        alert("橙色的盒子！事件阶段：" + eventPhase(e.eventPhase));
+    }
+
+    function alertYellow(e) {
+        alert("黄色的盒子！事件阶段：" + eventPhase(e.eventPhase));
+    }
+
+    addEvent(my$("div1"), "click", alertYellow);
+    addEvent(my$("div2"), "click", alertOrange);
+    addEvent(my$("div3"), "click", alertRed);
+
+    // 判断事件阶段
+    function eventPhase(num) {
+        switch (num) {
+            case 1:
+                return "事件捕获阶段";
+            case 2:
+                return "事件目标阶段";
+            case 3:
+                return "事件冒泡阶段";
+        }
+    }
+</script>
+</body>
+</html>

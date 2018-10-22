@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模仿搜索框的搜索历史效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0f3ef;
+        }
+
+        #box {
+            margin: 100px auto;
+            width: 450px;
+            /* text和button之间没有空隙 */
+            font-size: 0;
+            overflow: hidden;
+        }
+
+        #text {
+            width: 350px;
+            padding: 0 5px;
+            height: 40px;
+            border: 2px solid #3385ff;
+            font-size: 16px;
+            background-color: #ffffff;
+        }
+
+        #btn {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            background: #3385ff;
+            border: 0;
+            border-bottom: 1px solid #2d78f4;
+            color: #ffffff;
+            cursor: pointer;
+            /* text和button之间没有错位 */
+            vertical-align: top;
+        }
+
+        #btn:hover {
+            background: #317ef3;
+            border-bottom: 1px solid #2868c8;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <input type="text" id="text" placeholder="请输入'a'开头的单词以翻译">
+    <input type="button" value="翻译" id="btn">
+</div>
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    // 使用内置关键词匹配
+    var keywords = ["abandon  vt.丢弃;放弃", "absolute  a.绝对的;纯粹的", "access  n.接近;通道，入口", "accustomed  a.惯常的;习惯的",
+        "addition  n.加，加法;附加物", "adjust  vt.调整，调节;校正", "affair  n.事情，事件;事务", "aggressive  a.侵略的;好斗的",
+        "alphabet  n.字母表，字母系统", "ambulance  n.救护车;野战医院", "anchor  锚vi.抛锚，停泊", "ankle  n.踝，踝节部",
+        "astronaut  n.宇宙航行员，宇航员", "atom  n.原子;微粒;微量", "authority  n.当局，官方;权力", "available  a.可利用的;通用的",
+        "avenue  n.林荫道，道路;大街", "await  vt.等候，期待", "awake  a.醒着的vt.唤醒", "awkward  a.笨拙的;尴尬的", "ax  n.斧子"];
+
+    // 注册事件的代码
+    function addEvent(element, type, fun) {
+        if (element.addEventListener) {
+            element.addEventListener(type, fun, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, fun);
+        } else {
+            element["on" + type] = fun;
+        }
+    }
+
+    // 插入文本代码
+    function setInnerText(element, text) {
+        if (!element.textContent) {
+            element.innerText = text;
+        } else {
+            element.textContent = text;
+        }
+    }
+
+    // 为input#text注册事件，当输入按键抬起时触发
+    addEvent(my$("text"), "keyup", function () {
+        // 先检测有无选项框，如果有先删除
+        if (my$("resultBox")) {
+            my$("box").removeChild(my$("resultBox"));
+        }
+        // 把当前的键入值赋值给text变量
+        var text = this.value;
+        // 创建临时数组，存放结果
+        var snapArr = [];
+        // 遍历keywords数组，把indexOf方法索引到的索引值为0(从第一个位置匹配)的数组元素插入到临时数组中
+        for (var i = 0; i < keywords.length; i++) {
+            if (keywords[i].indexOf(text) == 0) {
+                snapArr.push(keywords[i]);
+            }
+        }
+        // console.log(snapArr);
+        // console.log(my$("text").value.length);
+        // console.log(snapArr.length)
+        // 如果输入为空，或者结果数组为空，则删除结果框，之后跳出函数，不执行后面的创建结果框的代码
+        if (this.value.length == 0 || snapArr.length == 0) {
+            if (my$("resultBox")) {
+                my$("box").removeChild(my$("resultBox"));
+            }
+            return;
+        }
+        // 创建结果框，并设定样式
+        var resultBoxObj = document.createElement("div");
+        resultBoxObj.id = "resultBox";
+        resultBoxObj.style.wdith = "350px";
+        resultBoxObj.style.border = "1px solid #3385ff";
+        resultBoxObj.style.backgroundColor = "#ffffff";
+        my$("box").appendChild(resultBoxObj);
+        // 用循环为结果框添加结果数组中的结果，并设定样式
+        for (var i = 0; i < snapArr.length; i++) {
+            var resultObj = document.createElement("p");
+            setInnerText(resultObj, snapArr[i]);
+            resultObj.style.fontSize = "14px";
+            resultObj.style.height = "20px";
+            resultObj.style.lineHeight = "20px";
+            resultObj.style.cursor = "pointer";
+            resultObj.style.paddingLeft = "5px";
+            resultBoxObj.appendChild(resultObj);
+            // 在循环中尽量不要使用匿名函数，防止内存溢出
+            addEvent(my$("resultBox").getElementsByTagName("p")[i], "mouseover", overStyle);
+            addEvent(my$("resultBox").getElementsByTagName("p")[i], "mouseout", outStyle);
+        }
+
+        // 鼠标移入样式
+        function overStyle() {
+            this.style.background = "#b3d2ff";
+        }
+
+        // 鼠标移出样式
+        function outStyle() {
+            this.style.background = "#ffffff";
+        }
+    })
+
+</script>
+</body>
+</html>

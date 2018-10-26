@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>方块移动</title>
+    <style>
+        .box {
+            border: 2px solid #000000;
+            width: 600px;
+            height: 550px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        input {
+            margin: 40px 20px 0;
+        }
+
+        #operationalBox {
+            width: 100px;
+            height: 80px;
+            background-color: skyblue;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="button" id="right300" value="向右移动300px">
+    <input type="button" id="down300" value="向下移动300px">
+    <input type="button" id="left300" value="向左移动300px" disabled>
+    <input type="button" id="up300" value="向上移动300px" disabled>
+    <div id="operationalBox"></div>
+</div>
+</body>
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    my$("right300").onclick = function () {
+        moveAnimateX(my$("operationalBox"), 400)
+    };
+    my$("left300").onclick = function () {
+        moveAnimateX(my$("operationalBox"), 100)
+    };
+    my$("down300").onclick = function () {
+        moveAnimateY(my$("operationalBox"), 400)
+    };
+    my$("up300").onclick = function () {
+        moveAnimateY(my$("operationalBox"), 100)
+    };
+
+    // 封装横向移动函数，参数：获取移动元素的id；移动的目标位置的left值(不带单位)
+    function moveAnimateX(element, target) {
+        // 设置定时器
+        var intervalId = setInterval(function () {
+            // 获取当前位置的left值
+            var currentDistance = element.offsetLeft;
+            // 每次移动的距离
+            var movement = 10;
+            // 根据目标位置和当前位置判断目标是向左还是向右移动
+            movement = (target > currentDistance) ? movement : (-movement);
+            currentDistance += movement;
+            // 如果当前位置到目标位置的距离大于移动一次的距离，则继续向目标位置移动
+            if (Math.abs(currentDistance - target) > Math.abs(movement)) {
+                element.style.left = currentDistance + "px";
+            }
+            // 如果当前位置到目标位置的距离小于移动一次的距离，则直接将目标移动到目标位置，并且清除定时器，同时判断按钮是否为不可用
+            else {
+                clearInterval(intervalId);
+                element.style.left = target + "px";
+                isDiabaled(element.offsetLeft, element.offsetTop);
+            }
+        }, 20)
+    }
+
+    // 封装纵向移动的函数，参数：获取移动元素的id；移动到的目标位置的top值(不带单位)
+    function moveAnimateY(element, target) {
+        var intervalId = setInterval(function () {
+            var currentDistance = element.offsetTop;
+            var movement = 10;
+            movement = (target > currentDistance) ? movement : (-movement);
+            currentDistance += movement;
+            if (Math.abs(currentDistance - target) > Math.abs(movement)) {
+                element.style.top = currentDistance + "px";
+            } else {
+                clearInterval(intervalId);
+                element.style.top = target + "px";
+                isDiabaled(element.offsetLeft, element.offsetTop);
+            }
+        }, 20)
+    }
+
+    // 判断按钮是否可用
+    function isDiabaled(left, top) {
+        if (left == 100 && top == 100) {
+            my$("left300").disabled = true;
+            my$("right300").disabled = false;
+            my$("up300").disabled = true;
+            my$("down300").disabled = false;
+        } else if (left == 100 && top == 400) {
+            my$("left300").disabled = true;
+            my$("right300").disabled = false;
+            my$("up300").disabled = false;
+            my$("down300").disabled = true;
+        } else if (left == 400 && top == 100) {
+            my$("left300").disabled = false;
+            my$("right300").disabled = true;
+            my$("up300").disabled = true;
+            my$("down300").disabled = false;
+        } else if (left == 400 && top == 400) {
+            my$("left300").disabled = false;
+            my$("right300").disabled = true;
+            my$("up300").disabled = false;
+            my$("down300").disabled = true;
+        }
+    }
+</script>
+</html>

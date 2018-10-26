@@ -55,8 +55,11 @@
 
     // 封装横向移动函数，参数：获取移动元素的id；移动的目标位置的left值(不带单位)
     function moveAnimateX(element, target) {
+        // 清除定时器，防止越点越快
+        clearInterval(element.intervalId);
         // 设置定时器
-        var intervalId = setInterval(function () {
+        // 用element.intervalID是为了只产生一个定时器
+        element.intervalId = setInterval(function () {
             // 获取当前位置的left值
             var currentDistance = element.offsetLeft;
             // 每次移动的距离
@@ -70,7 +73,7 @@
             }
             // 如果当前位置到目标位置的距离小于移动一次的距离，则直接将目标移动到目标位置，并且清除定时器，同时判断按钮是否为不可用
             else {
-                clearInterval(intervalId);
+                clearInterval(element.intervalId);
                 element.style.left = target + "px";
                 isDiabaled(element.offsetLeft, element.offsetTop);
             }
@@ -79,7 +82,8 @@
 
     // 封装纵向移动的函数，参数：获取移动元素的id；移动到的目标位置的top值(不带单位)
     function moveAnimateY(element, target) {
-        var intervalId = setInterval(function () {
+        clearInterval(element.intervalId);
+        element.intervalId = setInterval(function () {
             var currentDistance = element.offsetTop;
             var movement = 10;
             movement = (target > currentDistance) ? movement : (-movement);
@@ -87,7 +91,7 @@
             if (Math.abs(currentDistance - target) > Math.abs(movement)) {
                 element.style.top = currentDistance + "px";
             } else {
-                clearInterval(intervalId);
+                clearInterval(element.intervalId);
                 element.style.top = target + "px";
                 isDiabaled(element.offsetLeft, element.offsetTop);
             }
@@ -118,5 +122,6 @@
             my$("down300").disabled = true;
         }
     }
+
 </script>
 </html>

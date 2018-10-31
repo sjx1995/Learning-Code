@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>左右焦点的轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            border: 2px solid #000000;
+            padding: 10px;
+            width: 924px;
+            margin: 100px auto;
+        }
+
+        .carousel-figure {
+            width: 900px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        img {
+            width: 900px;
+            height: 300px;
+            vertical-align: top;
+        }
+
+        .carousel-figure ul {
+            position: absolute;
+            list-style: none;
+            width: 3600px;
+        }
+
+        li {
+            float: left;
+        }
+
+        .page-turning {
+            width: 100%;
+            height: 80px;
+            top: 50%;
+            margin-top: -40px;
+            position: absolute;
+        }
+
+        #left, #right {
+            height: 100%;
+            width: 48px;
+            line-height: 76px;
+            background-color: rgba(255, 255, 255, .4);
+            font-size: 40px;
+            color: #333333;
+            text-align: center;
+            display: none;
+            cursor: pointer;
+        }
+
+        #left {
+            float: left;
+        }
+
+        #right {
+            float: right;
+        }
+    </style>
+<body>
+<div class="box">
+    <!--相框-->
+    <div class="carousel-figure">
+        <ul>
+            <li><a href="#"><img src="./images/坎布拉.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/栈桥.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/长城.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/雪原.jpg" alt=""></a></li>
+        </ul>
+        <!--翻页按钮-->
+        <div class="page-turning">
+            <div id="left">&lt;</div>
+            <div id="right">&gt;</div>
+        </div>
+    </div>
+</div>
+<script>
+    //获取图片宽度
+    var imgWidth = document.getElementsByClassName('carousel-figure')[0].getElementsByTagName('img')[0].offsetWidth;
+
+    /*
+    * 左右焦点的轮播图
+    * 功能：鼠标移入图片，显示翻页按钮，单击左右滑动图片
+    * */
+
+    // 获取
+    var box = document.getElementsByClassName('box')[0];
+    var imgUl = document.getElementsByClassName('carousel-figure')[0].getElementsByTagName('ul')[0];
+    var leftTurning = document.getElementById('left');
+    var rightTurning = document.getElementById('right');
+
+    // 鼠标移入box显示、移出box隐藏翻页按钮
+    box.onmouseover = function () {
+        leftTurning.style.display = 'block';
+        rightTurning.style.display = 'block';
+    };
+    box.onmouseout = function () {
+        leftTurning.style.display = 'none';
+        rightTurning.style.display = 'none';
+    };
+
+    // 注册单击按钮翻页事件
+    var clickNum = 0;
+    // 向左翻页
+    leftTurning.onclick = function () {
+        if (clickNum > 0) {
+            clickNum--;
+            moveAnimateX(imgUl, -clickNum * imgWidth);
+        }
+    };
+    // 向右翻页
+    rightTurning.onclick = function () {
+        if (clickNum < imgUl.children.length-1) {
+            clickNum++;
+            moveAnimateX(imgUl, -clickNum * imgWidth);
+        }
+    };
+
+    // 将任意元素移动到任意位置的代码,代码见034
+    function moveAnimateX(element, target) {
+        clearInterval(element.intervalId);
+        element.intervalId = setInterval(function () {
+            var currentLeft = element.offsetLeft;
+            var step = 10;
+            step = currentLeft < target ? step : -step;
+            currentLeft += step;
+            if (Math.abs(currentLeft - target) > Math.abs(step)) {
+                element.style.left = currentLeft + "px";
+            } else {
+                element.style.left = target + "px";
+                clearInterval(element.intervalId);
+            }
+        },2)
+    }
+</script>
+</body>
+</html>

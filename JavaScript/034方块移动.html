@@ -53,7 +53,7 @@
         moveAnimateY(my$("operationalBox"), 100)
     };
 
-    // 封装横向移动函数，参数：获取移动元素的id；移动的目标位置的left值(不带单位)
+    // 封装横向移动函数，参数：获取移动元素的id；移动的目标位置的left值(不带单位，区分正负)
     function moveAnimateX(element, target) {
         // 清除定时器，防止越点越快
         clearInterval(element.intervalId);
@@ -80,7 +80,7 @@
         }, 20)
     }
 
-    // 封装纵向移动的函数，参数：获取移动元素的id；移动到的目标位置的top值(不带单位)
+    // 封装纵向移动的函数，参数：获取移动元素的id；移动到的目标位置的top值(不带单位，区分正负)
     function moveAnimateY(element, target) {
         clearInterval(element.intervalId);
         element.intervalId = setInterval(function () {

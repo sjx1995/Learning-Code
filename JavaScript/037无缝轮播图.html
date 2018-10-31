@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            border: 2px solid #000000;
+            padding: 10px;
+            width: 924px;
+            margin: 100px auto;
+        }
+
+        .carousel-figure {
+            width: 900px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        img {
+            width: 900px;
+            height: 300px;
+            vertical-align: top;
+        }
+
+        .carousel-figure ul {
+            position: absolute;
+            list-style: none;
+            width: 3600px;
+        }
+
+        li {
+            float: left;
+        }
+    </style>
+<body>
+<div class="box">
+    <!--相框-->
+    <div class="carousel-figure">
+        <ul>
+            <li><a href="#"><img src="./images/雪原.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/坎布拉.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/栈桥.jpg" alt=""></a></li>
+            <!--为了无缝效果，需要重复第一张图片-->
+            <li><a href="#"><img src="./images/雪原.jpg" alt=""></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    /*
+    * 无缝轮播图
+    * 功能：轮播图片，一直循环；如果鼠标进入则停止，鼠标移出继续循环
+    * */
+    // 获取ul；并计算ul长度
+    var ulObj = document.getElementsByClassName('carousel-figure')[0].children[0];
+    var imgWidth = document.getElementsByClassName('carousel-figure')[0].offsetWidth;
+    var ulWidth = imgWidth * (document.getElementsByClassName('carousel-figure')[0].getElementsByTagName('img').length - 1);
+
+    var current = 0;
+
+    // ul移动
+    function move() {
+        current -= 10;
+        if (current < -ulWidth) {
+            ulObj.style.left = 0 + "px";
+            current = 0;
+        } else {
+            ulObj.style.left = current + "px";
+        }
+    }
+
+    // 声明计时器，并将地址存放在intervalId变量中
+    var intervalId = setInterval(move, 20);
+
+    // 鼠标移入，清楚定时器
+    ulObj.onmouseover = function () {
+        clearInterval(intervalId);
+    };
+
+    // 鼠标移出，重新创建定时器，并将地址存放在intervalId变量中
+    ulObj.onmouseout = function () {
+        intervalId = setInterval(move, 20);
+    };
+</script>
+</body>
+</html>

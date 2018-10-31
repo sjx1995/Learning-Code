@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .box {
+        border: 2px solid #000000;
+        padding: 10px;
+        width: 924px;
+        margin: 100px auto;
+    }
+
+    .carousel-figure {
+        width: 900px;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    img {
+        width: 900px;
+        height: 300px;
+        vertical-align: top;
+    }
+
+    .carousel-figure ul {
+        position: absolute;
+        list-style: none;
+        width: 3600px;
+    }
+
+    li {
+        float: left;
+    }
+
+    .circle {
+        position: absolute;
+        bottom: 20px;
+        right: 80px;
+    }
+
+    .circle li {
+        width: 15px;
+        height: 15px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    li.current {
+        background: #ff831a;
+    }
+</style>
+<body>
+<div class="box">
+    <!--相框-->
+    <div class="carousel-figure">
+        <ul>
+            <li><a href="#"><img src="./images/坎布拉.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/栈桥.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/长城.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/雪原.jpg" alt=""></a></li>
+        </ul>
+        <div class="circle">
+            <ul>
+                <li class="current"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    // 获取图片的ul和按钮的li
+    var imgUl = document.getElementsByClassName('carousel-figure')[0].getElementsByTagName('ul')[0];
+    var liObj = document.getElementsByClassName('circle')[0].getElementsByTagName('li');
+    // 鼠标移入的轮播图
+    for (var i = 0; i < liObj.length; i++) {
+        // 循环为小圆点写入标记
+        liObj[i].setAttribute('index', i);
+        // 注册鼠标移入事件：移除所有class属性，为当前鼠标移入的li添加class.current
+        liObj[i].onmouseover = function () {
+            for (var j = 0; j < liObj.length; j++) {
+                liObj[j].removeAttribute('class');
+            }
+            this.setAttribute('class', 'current');
+            var index = this.getAttribute('index');
+            // 移动ul，使对应的图片移入相框
+            moveAnimateX(imgUl, -index * 900)
+        }
+    }
+
+    // 使任意元素移动到任意位置，代码详见034
+    function moveAnimateX(element, target) {
+        clearInterval(element.intervalId);
+        element.intervalId = setInterval(function () {
+            var currentLeft = element.offsetLeft;
+            var step = 10;
+            step = currentLeft < target ? step : -step;
+            currentLeft += step;
+            if (Math.abs(currentLeft - target) > Math.abs(step)) {
+                element.style.left = currentLeft + 'px';
+            } else {
+                element.style.left = target + 'px';
+                clearInterval(this.intervalId);
+            }
+        }, 2)
+    }
+</script>
+</body>
+</html>

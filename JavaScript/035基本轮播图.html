@@ -59,6 +59,15 @@
     li.current {
         background: #ff831a;
     }
+
+    .page-turning {
+        width: 100%;
+        height: 80px;
+        top: 50%;
+        margin-top: -40px;
+        position: absolute;
+    }
+
 </style>
 <body>
 <div class="box">
@@ -70,6 +79,7 @@
             <li><a href="#"><img src="./images/长城.jpg" alt=""></a></li>
             <li><a href="#"><img src="./images/雪原.jpg" alt=""></a></li>
         </ul>
+        <!--小圆圈标记-->
         <div class="circle">
             <ul>
                 <li class="current"></li>
@@ -81,10 +91,18 @@
     </div>
 </div>
 <script>
+    // 图片宽度
+    var imgWidth = document.getElementsByClassName('carousel-figure')[0].getElementsByTagName('img')[0].offsetWidth;
+
+    /*
+    * 鼠标移入的轮播图
+    * 功能：鼠标移入标记点，图片移动
+    * */
+
     // 获取图片的ul和按钮的li
     var imgUl = document.getElementsByClassName('carousel-figure')[0].getElementsByTagName('ul')[0];
     var liObj = document.getElementsByClassName('circle')[0].getElementsByTagName('li');
-    // 鼠标移入的轮播图
+
     for (var i = 0; i < liObj.length; i++) {
         // 循环为小圆点写入标记
         liObj[i].setAttribute('index', i);
@@ -96,7 +114,7 @@
             this.setAttribute('class', 'current');
             var index = this.getAttribute('index');
             // 移动ul，使对应的图片移入相框
-            moveAnimateX(imgUl, -index * 900)
+            moveAnimateX(imgUl, -index * imgWidth)
         }
     }
 

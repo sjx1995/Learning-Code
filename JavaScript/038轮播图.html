@@ -169,13 +169,16 @@
     // 向左翻页
     toLeft.onclick = leftClick;
     function leftClick() {
+        // 当标记为0时，也就是第一张图片向左翻页时：将第一张图替换为最后一张，并设置标记为图片个数-1
         if (index == 0) {
             imgUlObj.style.left = -circleUlObj.children.length * imgWidth + "px";
             index = circleUlObj.children.length;
         }
+        // 向左翻页，标记-1
         index--;
         moveAnimateX(imgUlObj, -index * imgWidth);
-        console.log(index);
+        // 设置图片对应的标记
+        // 循环清除class值，并将当前标记对应的编号的li设置class.current
         for (var i = 0; i < circleUlObj.children.length; i++) {
             circleUlObj.children[i].removeAttribute("class");
         }
@@ -185,17 +188,22 @@
     // 向右翻页
     toRight.onclick = rightClick;
     function rightClick() {
+        // 当index的值为图片的个数时（即此时为最后一张），向右翻页，应将其替换为第一张，再向右移动，并将index设为0
         if (index == circleUlObj.children.length) {
             imgUlObj.style.left = 0 + "px";
             index = 0;
         }
+        // 向右移动，index+1，
         index++;
         moveAnimateX(imgUlObj, -index * imgWidth);
-        console.log(index);
+        // 设置图片对应的标记
+        // 当向右翻页之后显示第一张图片时(实际显示的是最后一张克隆的图片)，此时移除最后一个标记的class，并设置第一个标记为class.current
         if (index == circleUlObj.children.length) {
             circleUlObj.children[circleUlObj.children.length - 1].removeAttribute("class");
             circleUlObj.children[0].setAttribute("class", "current");
-        } else {
+        }
+        // 如果向右翻页之后不是显示第一张图片(实际显示的是最后一张克隆的图片)，则遍历标记元素清除所有class，并设置当前index对应的标记为class.current
+        else {
             for (var i = 0; i < circleUlObj.children.length; i++) {
                 circleUlObj.children[i].removeAttribute("class");
             }
@@ -206,7 +214,7 @@
     // 自动播放
     var autoplay=setInterval(rightClick,1500);
 
-    // 移动任意元素到任意位置的函数
+    // 移动任意元素到任意位置的函数，代码见034
     function moveAnimateX(element, target) {
         clearInterval(element.intervalId);
         element.intervalId = setInterval(function () {

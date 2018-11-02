@@ -86,22 +86,22 @@
 
     //变速移动动画
     function variableSpeed(element, target) {
-        clearInterval(element.leIntervalId);
+        clearInterval(element.IntervalId);
         element.IntervalId = setInterval(function () {
             var current = element.offsetLeft;
+            // 让每一次移动的距离等于（目标-当前位置）/10
             var step = (target - current) / 10;
+            // step若为大于0的小数则向上取整；否则向下取整
             step = step > 0 ? Math.ceil(step) : Math.floor(step);
             current += step;
+            element.style.left = current + "px";
             if (current == target) {
                 clearInterval(element.IntervalId);
-            } else {
-                element.style.left = current + "px";
             }
-            //测试代码:
+            // 测试代码:
             console.log("目标位置:" + target + ",当前位置:" + current + ",每次移动步数:" + step);
         }, 20)
     }
-
 
     // 匀速移动动画，函数见034
     function uniformSpeed(element, target) {
@@ -117,7 +117,7 @@
                 element.style.left = target + "px";
                 clearInterval(element.IntervalId);
             }
-            //测试代码:
+            // 测试代码:
             console.log("目标位置:" + target + ",当前位置:" + current + ",每次移动步数:" + step);
         }, 20)
     }

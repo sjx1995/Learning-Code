@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>固定导航栏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            height: 200px;
+            background-color: #800000;
+        }
+
+        nav {
+            height: 80px;
+            width: 100%;
+            background-color: #ff1d23;
+            color: #ffffff;
+            font-size: 18px;
+            line-height: 80px;
+        }
+
+        ul {
+            list-style: none;
+            position: absolute;
+            margin-left: 50%;
+            left: -204px;
+        }
+
+        li {
+            float: left;
+            margin-right: 100px;
+        }
+
+        main {
+            height: 1600px;
+            background: linear-gradient(palevioletred, orange, yellow, greenyellow);
+        }
+
+        footer {
+            height: 100px;
+            background-color: deepskyblue;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<header></header>
+<nav>
+    <ul>
+        <li>首页</li>
+        <li>文章</li>
+        <li>关于</li>
+    </ul>
+</nav>
+<main></main>
+<footer></footer>
+</body>
+<script>
+    // 封装获取滚动出窗口的内容长度与宽度
+    function getScroll() {
+        return {
+            top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+            left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
+        }
+    }
+
+    // 获取元素
+    var header = document.getElementsByTagName('header')[0];
+    var nav = document.getElementsByTagName('nav')[0];
+    var main = document.getElementsByTagName('main')[0];
+    // 当页面滚动时，判断页面上面滚出屏幕的距离，为nav添加.fixed或移除.fixed
+    window.onscroll = function () {
+        if (getScroll().top >= header.offsetHeight) {
+            nav.setAttribute("class", "fixed");
+            // 因为nav.class.position=fixed，脱离了标准流，为了不至于让main挤上去，要为main添加margin-top，值等于nav的高度
+            main.style.marginTop = nav.offsetHeight + "px";
+        } else {
+            nav.removeAttribute("class");
+            main.style.marginTop = 0;
+        }
+    }
+</script>
+</html>

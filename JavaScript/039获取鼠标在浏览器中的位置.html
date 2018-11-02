@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取鼠标在浏览器中的位置</title>
+</head>
+<body>
+    <p>当前鼠标X坐标：<span></span></p>
+    <p>当前鼠标Y坐标：<span></span></p>
+<script>
+    window.onmousemove=function (e) {
+        document.getElementsByTagName('span')[0].innerHTML=e.clientX;
+        document.getElementsByTagName('span')[1].innerHTML=e.clientY;
+    }
+</script>
+</body>
+</html>

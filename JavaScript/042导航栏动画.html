@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航栏</title>
+    <style>
+        nav{
+            height: 40px;
+            width: 800px;
+            margin: 100px auto;
+            background-color: #333333;
+            position: relative;
+            border-radius: 140px;
+        }
+        ul{
+            list-style: none;
+        }
+        li{
+            float: left;
+            margin: 0 15px;
+        }
+        a{
+            text-decoration: none;
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 40px;
+        }
+        nav span{
+            border: 2px solid #ffffff;
+            width: 28px;
+            height: 0;
+            position: absolute;
+            top: 32px;
+            left: 50px;
+        }
+        p{
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">新闻</a></li>
+        <li><a href="#">归档</a></li>
+        <li><a href="#">微博</a></li>
+        <li><a href="#">数码</a></li>
+        <li><a href="#">关于</a></li>
+        <li><a href="#">登录</a></li>
+        <li><a href="#">注册</a></li>
+    </ul>
+    <span></span>
+</nav>
+<p>当前选中的是：<span>首页(默认)</span></p>
+<script>
+    for (var i=0;i<document.getElementsByTagName('li').length;i++){
+        var liEle=document.getElementsByTagName('li')[i];
+        liEle.onmouseover=mouseOverHandle;
+        liEle.onclick=clickHandle;
+        liEle.onmouseout=mouseOutHandle;
+    }
+    var spanEle=document.getElementsByTagName('span')[0];
+    function mouseOverHandle(){
+        moveAnimate(spanEle,this.offsetLeft);
+    }
+    var lastPosition=0;
+    function clickHandle() {
+        lastPosition=this.offsetLeft;
+        document.getElementsByTagName('span')[1].innerText=this.innerText
+    }
+    function mouseOutHandle() {
+        moveAnimate(spanEle,lastPosition);
+    }
+
+    function moveAnimate(element, target) {
+        clearInterval(element.intervalId);
+        element.intervalId = setInterval(function () {
+            var current = element.offsetLeft;
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            if (current == target) {
+                clearInterval(element.intervalId);
+            } else {
+                element.style.left = current + "px";
+            }
+        }, 20)
+    }
+</script>
+</body>
+</html>

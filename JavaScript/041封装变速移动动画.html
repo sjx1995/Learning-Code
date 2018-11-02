@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装变速移动动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            border: 2px solid #000000;
+            width: 1084px;
+            height: 404px;
+            margin: 100px auto;
+            padding: 80px 100px;
+            position: relative;
+        }
+
+        .input-container {
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+
+        }
+
+        input {
+            width: 150px;
+            height: 60px;
+            font-size: 16px;
+            line-height: 60px;
+            background-color: #87ceeb;
+            outline: none;
+            border: 0;
+            cursor: pointer;
+            transition: all .1s linear;
+            box-shadow: 2px 3px 8px rgba(0, 0, 0, .3);
+        }
+
+        input:hover {
+            box-shadow: 0 0 0 rgba(0, 0, 0, .3);
+        }
+
+        #cube {
+            height: 100px;
+            width: 100px;
+            top: 200px;
+            left: 80px;
+            background-color: #1ba85a;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="input-container">
+        <input type="button" value="匀速移动至400px" id="uniform-to-400">
+        <input type="button" value="匀速移动至800px" id="uniform-to-800">
+        <input type="button" value="变速移动至400px" id="variable-to-400">
+        <input type="button" value="变速移动至800px" id="variable-to-800">
+    </div>
+    <div id="cube"></div>
+</div>
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    // 调用匀速运动动画
+    my$("uniform-to-400").onclick = function () {
+        uniformSpeed(my$("cube"), 480);
+    };
+    my$("uniform-to-800").onclick = function () {
+        uniformSpeed(my$("cube"), 880);
+    };
+
+    // 调用变速移动动画
+    my$("variable-to-400").onclick = function () {
+        variableSpeed(my$("cube"), 480);
+    };
+    my$("variable-to-800").onclick = function () {
+        variableSpeed(my$("cube"), 880);
+    };
+
+    //变速移动动画
+    function variableSpeed(element, target) {
+        clearInterval(element.leIntervalId);
+        element.IntervalId = setInterval(function () {
+            var current = element.offsetLeft;
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            if (current == target) {
+                clearInterval(element.IntervalId);
+            } else {
+                element.style.left = current + "px";
+            }
+            //测试代码:
+            console.log("目标位置:" + target + ",当前位置:" + current + ",每次移动步数:" + step);
+        }, 20)
+    }
+
+
+    // 匀速移动动画，函数见034
+    function uniformSpeed(element, target) {
+        clearInterval(element.IntervalId);
+        element.IntervalId = setInterval(function () {
+            var current = my$("cube").offsetLeft;
+            var step = 10;
+            step = current < target ? step : -step;
+            current += step;
+            if (Math.abs(current - target) > Math.abs(step)) {
+                element.style.left = current + "px";
+            } else {
+                element.style.left = target + "px";
+                clearInterval(element.IntervalId);
+            }
+            //测试代码:
+            console.log("目标位置:" + target + ",当前位置:" + current + ",每次移动步数:" + step);
+        }, 20)
+    }
+</script>
+</body>
+</html>

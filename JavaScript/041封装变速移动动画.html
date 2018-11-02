@@ -107,7 +107,7 @@
     function uniformSpeed(element, target) {
         clearInterval(element.IntervalId);
         element.IntervalId = setInterval(function () {
-            var current = my$("cube").offsetLeft;
+            var current = element.offsetLeft;
             var step = 10;
             step = current < target ? step : -step;
             current += step;

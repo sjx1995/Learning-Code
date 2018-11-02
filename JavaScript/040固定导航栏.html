@@ -78,6 +78,7 @@
     var header = document.getElementsByTagName('header')[0];
     var nav = document.getElementsByTagName('nav')[0];
     var main = document.getElementsByTagName('main')[0];
+
     // 当页面滚动时，判断页面上面滚出屏幕的距离，为nav添加.fixed或移除.fixed
     window.onscroll = function () {
         if (getScroll().top >= header.offsetHeight) {

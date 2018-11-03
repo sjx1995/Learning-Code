@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>获取元素属性</title>
+    <title>获取元素样式的兼容代码</title>
     <style>
         div {
             width: 500px;
@@ -17,6 +17,7 @@
 <script>
     // 获取任意元素的任意属性的兼容代码
     // 参数：要获取属性的元素；要获取的属性(字符串)
+    // 函数返回的值也是字符串类型
     function getElementStyle(element, attr) {
         // getComputedStyle: Chrome、Firefox支持
         // currentStyle: IE支持

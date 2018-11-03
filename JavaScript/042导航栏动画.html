@@ -60,7 +60,6 @@
 </nav>
 <p>当前选中的是：<span>首页(默认)</span></p>
 <p>当前移动到的是：<span>首页(默认)</span></p>
-<p>上一次移动到的是：<span>首页(默认)</span></p>
 <script>
     // 循环为每一个标题注册事件，循环里尽量不要用匿名函数
     for (var i = 0; i < document.getElementsByTagName('li').length; i++) {
@@ -93,7 +92,6 @@
     // 点击了则将移动元素的left值设置为点击后标题对应的left值
     function mouseOutHandle() {
         moveAnimate(spanEle, lastPosition);
-        document.getElementsByTagName('span')[3].innerText=this.innerText;
         document.getElementsByTagName('span')[2].innerText="";
     }
 

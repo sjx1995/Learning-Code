@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装变速动画动画</title>
+    <style>
+        .box   {
+            width: 100px;
+            height: 100px;
+            background-color: #195f12;
+            position: absolute;
+            top: 50px;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+<input type="button" id="btn1" value="向右移动">
+<input type="button" id="btn2" value="向下移动">
+<input type="button" id="btn3" value="宽度变化">
+<input type="button" id="btn4" value="高度变化">
+<div class="box"></div>
+<script>
+    // 获取任意元素的任意属性的函数，见043
+    function getElementStyle(element, attr) {
+        return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];
+    }
+
+    // 变速动画函数，可缓动地改变目标元素的位置、大小等
+    // 参数：目标元素；目标元素的属性名(字符串)；目标元素的属性变化后的值(数字)
+    function vairableSpeedAnimation(element, attr, target) {
+        clearInterval(element.interId);
+        element.interId = setInterval(function () {
+            var current = parseInt(getElementStyle(element, attr));
+            var step = (target - current) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            current += step;
+            if (target == current) {
+                clearInterval(element.interId);
+            } else {
+                element.style[attr] = current + "px";
+            }
+        }, 20)
+    }
+
+    // 测试
+    document.getElementById('btn1').onclick=function () {
+        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"left",300);
+        this.disabled=true;
+    };
+    document.getElementById('btn2').onclick=function () {
+        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"top",200);
+        this.disabled=true;
+    };
+    document.getElementById('btn3').onclick=function () {
+        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"width",250);
+        this.disabled=true;
+    };
+    document.getElementById('btn4').onclick=function () {
+        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"height",200);
+        this.disabled=true;
+    };
+</script>
+</body>
+</html>

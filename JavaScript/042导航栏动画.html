@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>导航栏</title>
     <style>
-        nav{
+        nav {
             height: 40px;
             width: 800px;
             margin: 100px auto;
@@ -12,28 +12,33 @@
             position: relative;
             border-radius: 140px;
         }
-        ul{
+
+        ul {
             list-style: none;
         }
-        li{
+
+        li {
+            width: 62px;
             float: left;
-            margin: 0 15px;
         }
-        a{
+
+        a {
             text-decoration: none;
             font-size: 16px;
             color: #ffffff;
             line-height: 40px;
         }
-        nav span{
+
+        nav span {
             border: 2px solid #ffffff;
             width: 28px;
             height: 0;
             position: absolute;
             top: 32px;
-            left: 50px;
+            left: 40px;
         }
-        p{
+
+        p {
             font-size: 20px;
             text-align: center;
         }
@@ -54,26 +59,45 @@
     <span></span>
 </nav>
 <p>当前选中的是：<span>首页(默认)</span></p>
+<p>当前移动到的是：<span>首页(默认)</span></p>
+<p>上一次移动到的是：<span>首页(默认)</span></p>
 <script>
-    for (var i=0;i<document.getElementsByTagName('li').length;i++){
-        var liEle=document.getElementsByTagName('li')[i];
-        liEle.onmouseover=mouseOverHandle;
-        liEle.onclick=clickHandle;
-        liEle.onmouseout=mouseOutHandle;
-    }
-    var spanEle=document.getElementsByTagName('span')[0];
-    function mouseOverHandle(){
-        moveAnimate(spanEle,this.offsetLeft);
-    }
-    var lastPosition=0;
-    function clickHandle() {
-        lastPosition=this.offsetLeft;
-        document.getElementsByTagName('span')[1].innerText=this.innerText
-    }
-    function mouseOutHandle() {
-        moveAnimate(spanEle,lastPosition);
+    // 循环为每一个标题注册事件，循环里尽量不要用匿名函数
+    for (var i = 0; i < document.getElementsByTagName('li').length; i++) {
+        var liEle = document.getElementsByTagName('li')[i];
+        liEle.onmouseover = mouseOverHandle;
+        liEle.onclick = clickHandle;
+        liEle.onmouseout = mouseOutHandle;
     }
 
+    // 获取需要移动的目标
+    var spanEle = document.getElementsByTagName('span')[0];
+
+    // 鼠标进入调用移动动画，移动到的目标(span的left值)是对应标题的left值
+    function mouseOverHandle() {
+        moveAnimate(spanEle, this.offsetLeft);
+        document.getElementsByTagName('span')[2].innerText=this.innerText;
+    }
+
+    // lastPosition值是移动元素初始的left值
+    var lastPosition = 40;
+
+    // 鼠标点击事件，点击之后将点击的标题对应left值赋值给lastPosition变量
+    function clickHandle() {
+        lastPosition = this.offsetLeft;
+        document.getElementsByTagName('span')[1].innerText = this.innerText;
+    }
+
+    // 鼠标移出事件，鼠标移出后将需要移动的元素的left值设置为lastPosition：
+    // 即没有点击则将移动元素的left设置为初始值(第一个标题对应的left值)
+    // 点击了则将移动元素的left值设置为点击后标题对应的left值
+    function mouseOutHandle() {
+        moveAnimate(spanEle, lastPosition);
+        document.getElementsByTagName('span')[3].innerText=this.innerText;
+        document.getElementsByTagName('span')[2].innerText="";
+    }
+
+    // 变速移动动画，见041
     function moveAnimate(element, target) {
         clearInterval(element.intervalId);
         element.intervalId = setInterval(function () {

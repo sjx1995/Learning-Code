@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素属性</title>
+    <style>
+        div {
+            width: 500px;
+            height: 300px;
+            margin: 50px auto;
+            background-color: #99c0eb;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script>
+    // 获取任意元素的任意属性的兼容代码
+    // 参数：要获取属性的元素；要获取的属性(字符串)
+    function getElementStyle(element, attr) {
+        // getComputedStyle: Chrome、Firefox支持
+        // currentStyle: IE支持
+        return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];
+    }
+
+    // 测试
+    console.log(getElementAttribute(document.getElementById('box'), "background"));
+</script>
+</body>
+</html>

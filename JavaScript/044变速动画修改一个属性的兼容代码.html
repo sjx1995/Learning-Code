@@ -26,7 +26,7 @@
         return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr];
     }
 
-    // 变速动画函数，可缓动地改变目标元素的位置、大小等
+    // 变速动画函数，可缓动地改变目标元素的一个属性，如位置、大小等
     // 参数：目标元素；目标元素的属性名(字符串)；目标元素的属性变化后的值(数字)
     function vairableSpeedAnimation(element, attr, target) {
         clearInterval(element.interId);

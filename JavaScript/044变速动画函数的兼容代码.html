@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>封装变速动画动画</title>
     <style>
-        .box   {
+        #box   {
             width: 100px;
             height: 100px;
             background-color: #195f12;
@@ -19,7 +19,7 @@
 <input type="button" id="btn2" value="向下移动">
 <input type="button" id="btn3" value="宽度变化">
 <input type="button" id="btn4" value="高度变化">
-<div class="box"></div>
+<div id="box"></div>
 <script>
     // 获取任意元素的任意属性的函数，见043
     function getElementStyle(element, attr) {
@@ -45,19 +45,19 @@
 
     // 测试
     document.getElementById('btn1').onclick=function () {
-        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"left",300);
+        vairableSpeedAnimation(document.getElementById('box'),"left",300);
         this.disabled=true;
     };
     document.getElementById('btn2').onclick=function () {
-        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"top",200);
+        vairableSpeedAnimation(document.getElementById('box'),"top",200);
         this.disabled=true;
     };
     document.getElementById('btn3').onclick=function () {
-        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"width",250);
+        vairableSpeedAnimation(document.getElementById('box'),"width",250);
         this.disabled=true;
     };
     document.getElementById('btn4').onclick=function () {
-        vairableSpeedAnimation(document.getElementsByClassName('box')[0],"height",200);
+        vairableSpeedAnimation(document.getElementById('box'),"height",200);
         this.disabled=true;
     };
 </script>

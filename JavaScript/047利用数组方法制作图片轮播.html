@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用数组方法轮播图片</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        position: absolute;
+        left: 200px;
+        top: 0;
+    }
+
+    #box {
+        width: 1200px;
+        margin: 100px auto;
+        position: relative;
+        height: 500px;
+    }
+
+    #wrap {
+        height: 500px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    #arr {
+        opacity: 0;
+        height: 80px;
+        width: 1200px;
+        top: 50%;
+        margin-top: -40px;
+        position: absolute;
+        z-index: 9999;
+    }
+
+    #arr-l, #arr-r {
+        float: left;
+        height: 100%;
+        width: 48px;
+        line-height: 80px;
+        background-color: rgba(0, 0, 0, .7);
+        color: #ffffff;
+        cursor: pointer;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    #arr-r {
+        float: right;
+    }
+</style>
+<body>
+<div id="box">
+    <div id="wrap">
+        <ul>
+            <li><a href="#"><img src="./images/047-0.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/047-1.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/047-2.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/047-3.jpg" alt=""></a></li>
+            <li><a href="#"><img src="./images/047-4.jpg" alt=""></a></li>
+        </ul>
+    </div>
+    <div id="arr">
+        <div id="arr-l">&larr;</div>
+        <div id="arr-r">&rarr;</div>
+    </div>
+</div>
+<script>
+    /*
+    * 数组方法：
+    * 移除数组中的第一个值
+    * arr.shift()
+    *
+    * 将某个值加入到数组的末尾
+    * arr.push()
+    *
+    * 移除数组的最后一个值
+    * arr.pop()
+    *
+    * 将某个值加入到数组的开始
+    * arr.unshift()
+    *
+    * */
+    var arr = [1, 2, 3, 4, 5];
+    console.log("正向循环");
+    console.log(arr);
+    arr.push(arr.shift());
+    console.log(arr);
+    arr.push(arr.shift());
+    console.log(arr);
+    arr.push(arr.shift());
+    console.log(arr);
+    arr.push(arr.shift());
+    console.log(arr);
+    arr.push(arr.shift());
+    console.log(arr);
+    console.log("逆向循环");
+    console.log(arr);
+    arr.unshift(arr.pop());
+    console.log(arr);
+    arr.unshift(arr.pop());
+    console.log(arr);
+    arr.unshift(arr.pop());
+    console.log(arr);
+    arr.unshift(arr.pop());
+    console.log(arr);
+    arr.unshift(arr.pop());
+    console.log(arr);
+
+    //效果代码开始
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    // 需要移动的元素的目标样式
+    var config = [
+        {
+            width: 400,
+            top: 20,
+            left: 50,
+            opacity: 0.2,
+            zIndex: 2
+        },
+        {
+            width: 600,
+            top: 70,
+            left: 0,
+            opacity: 0.8,
+            zIndex: 3
+        },
+        {
+            width: 800,
+            top: 100,
+            left: 200,
+            opacity: 1,
+            zIndex: 4
+        },//2
+        {
+            width: 600,
+            top: 70,
+            left: 600,
+            opacity: 0.8,
+            zIndex: 3
+        },//3
+        {
+            width: 400,
+            top: 20,
+            left: 750,
+            opacity: 0.2,
+            zIndex: 2
+        }
+
+    ];
+
+    // 利用循环遍历每一个li，为其注册动画事件
+    function moveHandle() {
+        for (var i = 0; i < document.getElementsByTagName('li').length; i++) {
+            moveAnimate(document.getElementsByTagName('li')[i], config[i], function () {
+                isFinish = true;
+            });
+        }
+    }
+
+    moveHandle();
+
+    //为左右焦点注册显示隐藏事件
+    my$("box").onmouseover = function () {
+        moveAnimate(my$("arr"), {"opacity": 1});
+    };
+    my$("box").onmouseout = function () {
+        moveAnimate(my$("arr"), {"opacity": 0});
+    };
+
+    // 设置标记，如果为true则执行焦点的点击事件
+    var isFinish = true;
+
+    // 为左右焦点注册点击事件
+    my$("arr-l").onclick = function () {
+        if (isFinish) {
+            // 点击后将标记设置为false，直到动画结束后，在回调函数中将标记设置为true
+            isFinish = false;
+            // 将数组第一个元素放在最后
+            config.push(config.shift());
+            moveHandle();
+        }
+
+    };
+    my$("arr-r").onclick = function () {
+        if (isFinish) {
+            isFinish = false;
+            // 将数组最后一个元素插入数组开始
+            config.unshift(config.pop());
+            moveHandle();
+        }
+    };
+
+    //获取任意一个元素的任意属性，见043
+    function getElementStyle(element, attr) {
+        return window.getComputedStyle ? window.getComputedStyle(element, null)[attr] : element.currentStyle[attr] || 0;
+    }
+
+    // 变速改变任意一个元素的多个属性，045
+    function moveAnimate(element, json, fn) {
+        clearInterval(element.intervalId);
+        element.intervalId = setInterval(function () {
+            var flag = true;
+            for (var attr in json) {
+                if (attr == "opacity") {
+                    var current = getElementStyle(element, attr) * 100;
+                    var target = json[attr] * 100;
+                    var step = (target - current) / 10;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    current += step;
+                    element.style[attr] = current / 100;
+                } else if (attr == "zIndex") {
+                    element.style[attr] = json[attr];
+                } else {
+                    var current = parseInt(getElementStyle(element, attr));
+                    var target = json[attr];
+                    var step = (target - current) / 10;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    current += step;
+                    element.style[attr] = current + "px";
+                }
+                if (current != target) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                clearInterval(element.intervalId);
+                if (fn) {
+                    fn();
+                }
+            }
+        }, 20)
+    }
+</script>
+</body>
+</html>

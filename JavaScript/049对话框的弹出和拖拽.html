@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对话框的弹出和拖拽</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #link {
+        font-size: 24px;
+        margin: 80px;
+    }
+
+    #bg {
+        background-color: rgba(56, 56, 56, 0.71);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    #login {
+        width: 400px;
+        height: 300px;
+        border: 1px solid #000000;
+        border-radius: 20px;
+        z-index: 9999;
+        background-color: #ffffff;
+        display: none;
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        margin-left: -200px;
+        cursor: move;
+    }
+
+    #close {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #000000;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-size: 20px;
+        position: absolute;
+        right: -12px;
+        top: -12px;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+
+    #title {
+        text-align: center;
+        font-size: 24px;
+        line-height: 72px;
+        font-weight: 700;
+    }
+
+    .login-list {
+        padding: 20px;
+        height: 15px;
+    }
+
+    label {
+        float: left;
+        width: 100px;
+        line-height: 30px;
+        font-size: 16px;
+    }
+
+    .login-input {
+        width: 250px;
+        height: 30px;
+        float: left;
+        border: 1px solid #000000;
+        padding-left: 5px;
+    }
+
+    #btn {
+        width: 100px;
+        height: 30px;
+        font-size: 16px;
+        line-height: 30px;
+        background-color: #5a89ff;
+        border: 1px solid #000000;
+        margin: 40px 150px;
+    }
+</style>
+<body>
+<a href="javascript:void(0);" id="link">弹出对话框</a>
+<!--登录框-->
+<div id="login">
+    <div id="title">用户登录</div>
+    <div id="close">X</div>
+    <div class="login-list">
+        <label for="username">用户名：</label>
+        <input type="text" id="username" placeholder="请输入用户名" class="login-input">
+    </div>
+    <div class="login-list">
+        <label for="password">密码：</label>
+        <input type="password" id="password" placeholder="请输入密码" class="login-input">
+    </div>
+    <input type="button" id="btn" value="登录">
+</div>
+<!--遮罩-->
+<div id="bg"></div>
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    // 为链接注册点击事件，显示登录框和遮罩
+    my$('link').onclick = function () {
+        my$('login').style.display = "block";
+        my$('bg').style.display = "block";
+    };
+    // 为遮罩和关闭按钮注册事件，隐藏登录框和关闭按钮
+    my$('bg').onclick = function () {
+        my$('login').style.display = "none";
+        my$('bg').style.display = "none";
+    };
+    my$('close').onclick = function () {
+        my$('login').style.display = "none";
+        my$('bg').style.display = "none";
+    };
+
+    // 为登录框标题注册鼠标按下事件
+    my$('title').onmousedown = function (e) {
+        // 鼠标相对登录框的距离 = 鼠标相对窗口的距离 - 登录框相对窗口的位置
+        var spaceX = e.clientX - my$('login').offsetLeft;
+        var spaceY = e.clientY - my$('login').offsetTop;
+        console.log(spaceX, spaceY);
+        // 为登录框注册鼠标移动事件
+        document.onmousemove = function (e) {
+            // 登录框的位置 = 鼠标相对窗口的位置 - 鼠标相对登录框的距离
+            my$('login').style.left = e.clientX - spaceX + 200 + "px";
+            my$('login').style.top = e.clientY - spaceY + "px";
+        }
+    };
+    // 注册鼠标抬起事件
+    document.onmouseup = function () {
+        // 当鼠标抬起时，清除鼠标移动事件
+        document.onmousemove = null;
+    }
+</script>
+</body>
+</html>

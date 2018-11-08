@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>元素跟随鼠标移动的兼容代码</title>
+    <style>
+        .circle {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background-color: #ff1d23;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="circle"></div>
+<script>
+    // 将兼容代码封装在一个对象中
+    var moveObj = {
+        getEvent: function (event) {
+            // 写法等同于window.event ? window.event : event
+            return window.event || event;
+        }
+
+    }
+    console.log(moveObj.getEvent(event));
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>放大镜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 450px;
+            height: 450px;
+            border: 1px solid #000000;
+            position: relative;
+            margin: 100px;
+        }
+
+        #small {
+            position: relative;
+        }
+
+        #mask {
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 0, 0.3);
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+            display: none;
+        }
+
+        #big {
+            width: 320px;
+            height: 320px;
+            position: absolute;
+            top: 0;
+            left: 460px;
+            border: 1px solid #000000;
+            overflow: hidden;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="small">
+        <img src="./images/iPhoneXR.jpg" width="450" height="450" alt="" id="smallImg">
+        <div id="mask"></div>
+    </div>
+    <div id="big">
+        <img src="./images/iPhoneXR-big.jpg" width="800" height="800" alt="" id="bigImg">
+    </div>
+</div>
+<script>
+    function my$(id) {
+        return document.getElementById(id);
+    }
+
+    // 遮罩层的现实和隐藏
+    my$('box').onmouseover = function () {
+        my$("mask").style.display = "block";
+        my$("big").style.display = "block";
+    };
+    my$('box').onmouseout = function () {
+        my$("mask").style.display = "none";
+        my$("big").style.display = "none";
+    };
+
+    // 为遮罩层移动注册事件
+    my$("small").onmousemove = function (e) {
+        // 遮罩层相对页面的位置
+        var x = e.clientX - my$("mask").offsetWidth / 2;
+        var y = e.clientY - my$("mask").offsetHeight / 2;
+        // 减去父级元素的margin，此时x和y是遮罩层相对父级盒子的位置
+        x -= 100;
+        y -= 100;
+        // 遮罩层到左边和上边的距离最小值为0
+        x = x < 0 ? 0 : x;
+        y = y < 0 ? 0 : y;
+        // 遮罩层到左边和上边的距离最大值为父级元素的宽度(高度)-遮罩层的宽度(高度)
+        x = x > my$("smallImg").offsetWidth - my$("mask").offsetWidth ? my$("smallImg").offsetWidth - my$("mask").offsetWidth : x;
+        y = y > my$("smallImg").offsetHeight - my$("mask").offsetHeight ? my$("smallImg").offsetHeight - my$("mask").offsetHeight : y;
+        // 设置遮罩层相对父级元素(小图)的位置
+        my$("mask").style.left = x + "px";
+        my$("mask").style.top = y + "px";
+
+        // 大图的移动
+        // 遮罩层移动的距离 / 遮罩层移动的最大距离 = 大图移动的距离 / 大图移动的最大距离
+        // 即 大图移动的距离 = (遮罩层移动的距离 × 大图移动的最大距离) / 遮罩层移动的最大距离
+        my$("bigImg").style.marginLeft = -(x * (my$("bigImg").offsetWidth - my$("big").offsetWidth)) / (my$("smallImg").offsetWidth - my$("mask").offsetWidth) + "px";
+        my$("bigImg").style.marginTop = -(y * (my$("bigImg").offsetHeight - my$("big").offsetHeight)) / (my$("smallImg").offsetHeight - my$("mask").offsetHeight) + "px";
+    }
+</script>
+</body>
+</html>

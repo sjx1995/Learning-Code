@@ -4,9 +4,19 @@
     <meta charset="UTF-8">
     <title>元素跟随鼠标移动的兼容代码</title>
     <style>
-        .circle {
-            height: 20px;
-            width: 20px;
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 3000px;
+            height: 2000px;
+        }
+
+        #circle {
+            height: 30px;
+            width: 30px;
             border-radius: 50%;
             background-color: #ff1d23;
             position: absolute;
@@ -16,17 +26,37 @@
     </style>
 </head>
 <body>
-<div class="circle"></div>
+<div id="circle"></div>
 <script>
     // 将兼容代码封装在一个对象中
-    var moveObj = {
+    var eventObj = {
         getEvent: function (event) {
-            // 写法等同于window.event ? window.event : event
             return window.event || event;
+        },
+        getClientX: function (event) {
+            return this.getEvent(event).clientX;
+        },
+        getClientY: function (event) {
+            return this.getEvent(event).clientY;
+        },
+        getScrollX: function () {
+            return window.pageXOffset || document.body.scrollLeft || document.documentElement.offsetLeft;
+        },
+        getScrollY: function () {
+            return window.pageYOffset || document.body.scrollTop || document.documentElement.offsetTop;
+        },
+        getPageX: function (event) {
+            return this.getEvent(event).pageX ? this.getEvent(event).pageX : this.getClientX(event) + this.getScrollX();
+        },
+        getPageY: function (event) {
+            return this.getEvent(event).pageY ? this.getEvent(event).pageY : this.getClientY(event) + this.getScrollY();
         }
+    };
 
-    }
-    console.log(moveObj.getEvent(event));
+    document.onmousemove = function (event) {
+        document.getElementById('circle').style.left = eventObj.getPageX(event);
+        document.getElementById('circle').style.top = eventObj.getPageY(event);
+    };
 </script>
 </body>
 </html>

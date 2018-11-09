@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动条</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 800px;
+            height: 500px;
+            border: 1px solid #000000;
+            margin: 50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #content {
+            padding: 5px 12px 5px 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #scroll-container {
+            width: 12px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #d9d9d9;
+        }
+
+        #scroll-bar {
+            width: 12px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #47a6ff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="content">
+        <!--lorem[num]，随机生成num个单词-->
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad atque deleniti fuga illo nemo officiis quis ratione
+        recusandae voluptate. Ab, assumenda atque culpa eaque esse eum facilis labore minima odit reiciendis. At aut
+        excepturi id incidunt ipsam, iste, iusto magni molestias nulla quae tempore temporibus! Beatae eveniet obcaecati
+        quod repellat soluta temporibus vero! Adipisci consequuntur delectus deleniti esse fugiat necessitatibus
+        obcaecati. Aliquam consequatur consequuntur corporis culpa dolores ducimus ea earum est et fugit illum iusto
+        labore minima nam nemo numquam omnis optio provident qui quidem quod, saepe tenetur, voluptatum! Ab beatae dolor
+        doloribus ipsa iure iusto nostrum, nulla odio quis repellat rerum sint soluta, voluptas? Ad architecto assumenda
+        aut, autem beatae commodi delectus deleniti dolorem doloribus eius enim eos est explicabo fuga ipsa itaque
+        libero magnam maiores molestias natus necessitatibus neque nihil nulla perferendis praesentium quaerat quidem
+        quis quo quos sapiente, sequi voluptate voluptatem voluptatum? Aspernatur beatae consequuntur dicta dolore
+        doloremque eveniet facere harum, id illo in, iste iure libero magnam odio pariatur perspiciatis qui quibusdam
+        quidem recusandae rem sapiente vel voluptate! Accusamus aliquid aperiam asperiores aspernatur consectetur
+        corporis debitis, distinctio dolorem doloremque, exercitationem explicabo facilis maiores mollitia quae quas
+        qui, sit! Ad adipisci animi commodi deserunt, dolorem enim error fugit illo illum, ipsam magni maiores maxime,
+        molestias tenetur vero. Ab hic neque praesentium quam. Beatae blanditiis consectetur, ea est fuga impedit ipsum
+        itaque minima minus necessitatibus nostrum pariatur qui ratione repellat similique veritatis vero voluptatibus.
+        Ad aliquid deleniti, earum eos et facere fugiat illo iusto odit, pariatur quibusdam quod tempora temporibus.
+        Adipisci assumenda at doloribus ducimus et facere harum ipsum mollitia, nemo nulla officia omnis quisquam
+        reiciendis repellat saepe sapiente sed suscipit, tempora velit voluptates! Amet debitis fuga in ipsa neque
+        nostrum obcaecati repellat! Accusantium adipisci aliquam architecto atque beatae consectetur deleniti distinctio
+        ea, earum excepturi facere harum impedit, in iste mollitia natus neque non nostrum odit quas repellendus sit
+        tempore veniam voluptatem voluptates. Alias aspernatur consectetur corporis culpa cum ducimus ex in ipsa
+        molestiae omnis placeat quae, quam ratione soluta sunt tempore veniam! Accusantium alias animi aperiam, beatae,
+        consequatur deserunt dolore earum error esse eum excepturi harum illo inventore ipsum laboriosam laborum magnam
+        nesciunt nobis nostrum omnis optio quam ratione reiciendis saepe sapiente soluta temporibus vero voluptate,
+        voluptatem voluptatum. Ab accusantium asperiores aut beatae cum debitis deleniti deserunt, dolore ducimus eos
+        eum eveniet facere facilis, illo ipsum laboriosam magni mollitia necessitatibus odit omnis placeat possimus
+        provident quaerat quibusdam quos repudiandae saepe sint temporibus vero, voluptatibus. Corporis cumque
+        cupiditate distinctio ex provident quam tempora, ullam voluptatibus. Aperiam autem consectetur, culpa cum
+        cupiditate deserunt dolore doloribus dolorum ducimus ea eius eum explicabo facere fugit id in nisi numquam
+        perferendis quia quisquam ratione saepe similique soluta suscipit totam, ullam, veritatis voluptatum? Ea eum
+        excepturi nihil odio. Deserunt impedit itaque, minus obcaecati saepe vel? Animi deleniti doloremque earum ipsa
+        rem repudiandae rerum. Alias aut autem doloribus et, hic id itaque laboriosam laborum, minus nobis odio officiis
+        pariatur possimus quam quo repudiandae sint tempore temporibus voluptate voluptatem! A ab alias at autem
+        cupiditate, dolor dolorum, ducimus eos hic ipsa ipsum mollitia nesciunt non nostrum odit perspiciatis placeat
+        praesentium quo repellendus sequi sint vel veniam voluptate! Excepturi fugit illo laboriosam, obcaecati
+        perspiciatis repudiandae saepe sed temporibus voluptatibus voluptatum! Adipisci alias amet animi architecto
+        assumenda deserunt dicta doloribus ducimus ea eligendi enim et facilis fugit hic illum maiores minima nam neque
+        nihil nobis, non nulla omnis provident quam quibusdam quisquam quo quod, quos rem sapiente sed tempore ullam vel
+        veritatis voluptas voluptate voluptatem! Est itaque obcaecati omnis quaerat quas quis reprehenderit veritatis.
+        Accusamus architecto blanditiis consequuntur ex iste laboriosam nam nihil nulla, obcaecati quam quas quo quod
+        voluptate? Animi architecto corporis doloremque dolores, doloribus eaque eius eos expedita harum illum omnis
+        quas quis vel! Adipisci aliquam amet aperiam at beatae consequatur cumque cupiditate, delectus dolorem doloribus
+        dolorum ea eum, excepturi hic illo inventore ipsam ipsum, iste labore maiores modi nihil nisi nobis officiis
+        omnis optio quae qui quia repudiandae sapiente similique veritatis voluptas voluptatibus. Aliquam corporis
+        distinctio dolor, dolore dolorum in, incidunt itaque, magnam molestiae natus necessitatibus nulla optio placeat
+        saepe voluptatum. Cumque cupiditate debitis esse nihil non officia officiis rem repellat veritatis voluptatibus.
+        Accusantium at autem consequuntur corporis debitis earum esse ex excepturi ipsum laboriosam laudantium magni,
+        nesciunt nostrum numquam placeat quam qui quidem quo veniam vero. A accusamus, assumenda consectetur consequatur
+        delectus error exercitationem id in iste iusto laboriosam laborum maiores maxime non, nulla odit quos, rem
+        vitae. Aliquid atque deleniti dolores earum est laudantium nam officiis quia rerum sapiente. Accusantium aliquam
+        eligendi eos illum laboriosam laborum, maiores sint unde veniam vitae. Alias, aperiam asperiores doloremque
+        dolores, doloribus error exercitationem fuga fugit id molestiae nulla perspiciatis quaerat rem repellendus
+        repudiandae, sapiente sit? Adipisci consequatur eius enim exercitationem praesentium rem, sed tempore vel.
+        Atque, dolorem facere harum id perspiciatis quisquam veniam. Atque beatae cupiditate doloremque earum eos
+        explicabo fugiat hic id iusto maxime nam nemo odit possimus, provident repudiandae sit, tempora vel voluptates!
+        Adipisci aperiam autem beatae corporis delectus exercitationem facilis inventore iure necessitatibus odio
+        reiciendis, veniam. Quidem, quos, repellat. Accusamus accusantium asperiores corporis cupiditate, deserunt dicta
+        distinctio earum facere modi nobis, quisquam sequi. Accusantium aspernatur beatae esse est eveniet ipsum
+        laudantium obcaecati! Accusantium alias aperiam atque beatae commodi culpa dolorem, est exercitationem maiores
+        nam odio quidem quis, saepe sit suscipit, veniam vero voluptas! At eveniet, ex explicabo laborum minima
+        molestias possimus quidem quis sint voluptate! Aliquam animi atque blanditiis corporis culpa dicta dignissimos,
+        distinctio dolore enim explicabo fuga id laboriosam magni molestiae necessitatibus omnis optio pariatur possimus
+        quae quas qui quo reiciendis repellat sed sint tempore temporibus tenetur unde vel voluptate. Accusantium
+        aliquam asperiores ea est numquam quam totam, voluptatibus voluptatum. Accusantium aut commodi consectetur dicta
+        dolore, doloribus dolorum error excepturi facere hic ipsum laboriosam magni minus nihil nulla optio perspiciatis
+        possimus quaerat quam quas quasi quidem ratione repellendus rerum sapiente sunt tenetur totam ullam vel
+        voluptatibus! Accusantium aspernatur autem culpa debitis ea facilis iste necessitatibus nostrum perspiciatis
+        quibusdam, sapiente ullam voluptas voluptate? Dicta doloremque facere fuga ipsam libero nostrum optio placeat,
+        sequi?
+    </div>
+    <div id="scroll-container">
+        <div id="scroll-bar"></div>
+    </div>
+    <script>
+        function my$(id) {
+            return document.getElementById(id);
+        }
+
+        // 设置滚动条高度
+        // box高度 / content高度 = scroll-bar高度 / scroll-container高度
+        // 即 scroll-bar高度 = (box高度 × scroll-container高度) / content高度
+        my$("scroll-bar").style.height = my$("box").offsetHeight * my$("scroll-container").offsetHeight / my$("content").offsetHeight + "px";
+
+        my$("scroll-bar").onmousedown = function (e) {
+            var spaceY = e.clientY - my$("scroll-bar").offsetTop;
+            document.onmousemove = function (e) {
+                var y = e.clientY - spaceY;
+                y -= 3;
+                y = y < 0 ? 0 : y;
+                y = y > my$("scroll-container").offsetHeight - my$("scroll-bar").offsetHeight ? my$("scroll-container").offsetHeight - my$("scroll-bar").offsetHeight : y;
+                my$("scroll-bar").style.top = y + "px";
+
+                window.getSelection?window.getSelection().removeAllRanges():document.slection.empty();
+                // content移动
+                // 滚动条移动距离 / 滚动条最大移动距离 = content移动距离 / content最大移动距离
+                // 即 content移动距离 = (滚动条移动距离 × content最大移动距离) / 滚动条最大移动距离
+
+                my$("content").style.top = -y * (my$("content").offsetHeight - my$("box").offsetHeight) / (my$("scroll-container").offsetHeight - my$("scroll-bar").offsetHeight) + "px";
+                console.log(my$("content").style.offsetTop);
+            }
+        };
+
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        };
+
+    </script>
+</div>
+</body>
+</html>

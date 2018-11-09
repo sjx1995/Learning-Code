@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大量字符串拼接</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 100px;
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<input type="text" value="" title=""><br>
+<input type="text" value="" title=""><br>
+<input type="text" value="" title=""><br>
+<input type="text" value="" title=""><br>
+<input type="text" value="" title=""><br>
+<input type="button" id="btn" value="拼接字符串">
+<input type="button" id="clear" value="清空"><br>
+<p>拼接后的字符串：<span></span></p>
+<script>
+    // 为拼接按钮注册事件，拼接字符串最好使用数组而非字符串，因为字符串的不可变性，会导致内存被大量浪费(虽然这一点在现代浏览器中已经无需考虑)
+    document.getElementById('btn').onclick = function () {
+        var str = [];
+        for (var i = 0; i < document.getElementsByTagName('input').length - 2; i++) {
+            str[i] = document.getElementsByTagName('input')[i].value;
+        }
+        document.getElementsByTagName('span')[0].innerHTML = str.join('|');
+    };
+
+    // 为清空按钮注册事件
+    document.getElementById('clear').onclick = function () {
+        for (var i = 0; i < document.getElementsByTagName('input').length - 2; i++) {
+            document.getElementsByTagName('input')[i].value = "";
+        }
+    };
+</script>
+</body>
+</html>

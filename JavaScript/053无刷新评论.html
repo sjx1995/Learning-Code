@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无刷新评论</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #box {
+            width: 800px;
+            border: 2px solid #000000;
+            margin: 50px auto;
+            padding: 80px 100px;
+        }
+
+        thead {
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: 700;
+        }
+
+        tbody {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        tr td:first-child {
+            width: 200px;
+            padding-left: 10px;
+        }
+
+        tr td:last-child {
+            width: 400px;
+            padding-left: 10px;
+            overflow: hidden;
+        }
+
+        #username {
+            width: 595px;
+            margin-top: 10px;
+            border: 1px solid #000000;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+        #comment {
+            width: 595px;
+            height: 100px;
+            margin-top: 10px;
+            resize: none;
+            border: 1px solid #000000;
+            padding: 10px;
+        }
+
+        #submit {
+            width: 80px;
+            height: 30px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <table border="1" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <td>用户</td>
+            <td>留言</td>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <input type="text" value="" title="" id="username" placeholder="请输入用户名"><br>
+    <textarea name="" id="comment" cols="" rows="" title="" placeholder="请输入留言内容"></textarea><br>
+    <input type="button" value="提交" id="submit">
+</div>
+<script>
+    // 为提交按钮注册事件
+    document.getElementById('submit').onclick = function () {
+        // 获取用户名和评论内容
+        var username = document.getElementById('username').value;
+        var comment = document.getElementById('comment').value;
+        if (username && comment) {
+            // 创建td，并追加到tbody中
+            var trObj = document.createElement('tr');
+            document.getElementsByTagName('tbody')[0].appendChild(trObj);
+            // 创建td，写入内容，并追加到tr中
+            var tdObj1 = document.createElement('td');
+            tdObj1.innerHTML = username;
+            trObj.appendChild(tdObj1);
+            var tdObj2 = document.createElement('td');
+            tdObj2.innerHTML = comment;
+            trObj.appendChild(tdObj2);
+            // 清空
+            document.getElementById('username').value = "";
+            document.getElementById('comment').value = "";
+        }
+    }
+</script>
+</body>
+</html>

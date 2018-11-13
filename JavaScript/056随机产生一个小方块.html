@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机产生一个小方块</title>
+    <style>
+        .box {
+            width: 800px;
+            height: 600px;
+            background-color: #cccccc;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script>
+    // 产生随机数的自调用函数
+    (function (win) {
+        function Random() {
+
+        }
+
+        Random.prototype.getRandomNumber = function (min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        };
+
+        win.randomNum = new Random();
+    })(window);
+
+    // 产生随机方块
+    (function () {
+        // console.log(randomNum.getRandomNumber(0, 100));
+        var map = document.querySelector('.box');
+
+        // 小方块的构造函数
+        function Food(width, height, color,) {
+            this.width = width || 20;
+            this.height = height || 20;
+            this.x = 0;
+            this.y = 0;
+            this.color = color;
+            this.element = document.createElement('div');
+        }
+
+        // 初始化小方块，设置小方块的位置和样式
+        Food.prototype.init = function (map) {
+            // 设置小方块的样式
+            var div=this.element;
+            div.style.position="absolute";
+            div.style.width=this.width+"px";
+            div.style.height=this.height+"px";
+            div.style.backgroundColor=this.color;
+            // 添加小方块到地图中
+            map.appendChild(div);
+            this.render(map);
+        };
+        // 设置小方块的位置
+        Food.prototype.render=function (map) {
+            var x=randomNum.getRandomNumber(0,map.offsetWidth/this.width)*this.width;
+            var y=randomNum.getRandomNumber(0,map.offsetHeight/this.height)*this.height;
+            this.x=x;
+            this.y=y;
+            var div=this.element;
+            div.style.top=y+"px";
+            div.style.left=x+"px";
+        };
+        // 实例化对象
+        var food=new Food(20,20,"green");
+        food.init(map);
+        console.log(food.x+"===="+food.y);
+    })();
+</script>
+</body>
+</html>

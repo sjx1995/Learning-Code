@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>局部变量变成全局变量</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 如何把一个局部变量变成全局变量？
+    * 将局部变量赋值给全局变量就可以了
+    *
+    * */
+
+    // 函数的自调用
+    (function (win) {// 传入形参
+        // 声明局部变量
+        var str="局部变量";
+        // window为顶级对象，因为js是一门动态类型的语言，所以可以为对象添加没有的属性。在这里，为顶级对象添加了s这个属性，并赋予了str的值
+        win.s=str;
+    })(window);// 传入实参
+    // 这里用该写作window.s，window可以省略
+    console.log(s);
+</script>
+</body>
+</html>

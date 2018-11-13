@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产生随机数的全局对象</title>
+</head>
+<body>
+<script>
+    // 自调用函数
+    (function (win) {
+        // 构造函数
+        function Random() {
+
+        }
+        // 为构造函数的原型对象添加产生随机数的方法
+        Random.prototype.getRandom = function (min, max) {
+            // 产生 [min, max) 之间的随机整数
+            return Math.floor(Math.random() * (max - min) + min);
+        };
+        // 将构造函数暴露给window，以便自调用函数外部可以访问
+        win.random = Random;
+    })(window);
+    // 实例化对象
+    var rm = new random();
+    // 调用对象中的方法，并传入参数
+    var randomNum = rm.getRandom(0, 5);
+    console.log(randomNum);
+</script>
+</body>
+</html>

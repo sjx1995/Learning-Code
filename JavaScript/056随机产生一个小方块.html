@@ -9,11 +9,15 @@
             height: 600px;
             background-color: #cccccc;
             position: absolute;
+            color: #ffffff;
+            font-size: 30px;
+            line-height: 600px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-<div class="box"></div>
+<div class="box">刷新页面，小方块位置随机</div>
 <script>
     // 产生随机数的自调用函数
     (function (win) {
@@ -46,29 +50,29 @@
         // 初始化小方块，设置小方块的位置和样式
         Food.prototype.init = function (map) {
             // 设置小方块的样式
-            var div=this.element;
-            div.style.position="absolute";
-            div.style.width=this.width+"px";
-            div.style.height=this.height+"px";
-            div.style.backgroundColor=this.color;
+            var div = this.element;
+            div.style.position = "absolute";
+            div.style.width = this.width + "px";
+            div.style.height = this.height + "px";
+            div.style.backgroundColor = this.color;
             // 添加小方块到地图中
             map.appendChild(div);
             this.render(map);
         };
         // 设置小方块的位置
-        Food.prototype.render=function (map) {
-            var x=randomNum.getRandomNumber(0,map.offsetWidth/this.width)*this.width;
-            var y=randomNum.getRandomNumber(0,map.offsetHeight/this.height)*this.height;
-            this.x=x;
-            this.y=y;
-            var div=this.element;
-            div.style.top=y+"px";
-            div.style.left=x+"px";
+        Food.prototype.render = function (map) {
+            var x = randomNum.getRandomNumber(0, map.offsetWidth / this.width) * this.width;
+            var y = randomNum.getRandomNumber(0, map.offsetHeight / this.height) * this.height;
+            this.x = x;
+            this.y = y;
+            var div = this.element;
+            div.style.top = y + "px";
+            div.style.left = x + "px";
         };
         // 实例化对象
-        var food=new Food(20,20,"green");
+        var food = new Food(20, 20, "green");
         food.init(map);
-        console.log(food.x+"===="+food.y);
+        console.log(food.x + "====" + food.y);
     })();
 </script>
 </body>

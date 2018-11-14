@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听按键事件</title>
+    <style>
+        p {
+            font-size: 50px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        span {
+            font-weight: 700;
+            font-size: 60px;
+        }
+    </style>
+</head>
+<body>
+<p>按键以获取对应的keyCode</p>
+<script>
+    document.onkeydown = function (e) {
+        document.getElementsByTagName('p')[0].innerHTML = "你当前按下的键对应的keyCode：<span>" + e.keyCode + "</span>";
+    }
+</script>
+</body>
+</html>

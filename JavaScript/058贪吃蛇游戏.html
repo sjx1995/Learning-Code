@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇游戏</title>
+    <style>
+        .map {
+            width: 800px;
+            height: 600px;
+            background-color: #cccccc;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="map"></div>
+<script>
+    // 自调用函数：食物
+    (function (win) {
+        // 负责保存食物的数组
+        var element = [];
+
+        // 食物的构造函数
+        function Food(x, y, width, height, color) {
+            // 食物的长宽、颜色、位置
+            this.width = width || 20;
+            this.height = height || 20;
+            this.color = color || "#ff1d23";
+            this.x = x;
+            this.y = y;
+        }
+
+        // 为食物构造函数的原型添加方法，为的是数组共享，节省内存
+        Food.prototype.init = function (map) {
+            // 首先删除元素
+            remove();
+            // 创建元素
+            var div = document.createElement('div');
+            map.appendChild(div);
+            // 设置元素的样式
+            div.style.width = this.width + "px";
+            div.style.height = this.height + "px";
+            div.style.backgroundColor = this.color;
+            // 使用随机数生成元素的位置
+            this.x = parseInt(Math.random() * (map.offsetWidth / this.width)) * this.width;
+            this.y = parseInt(Math.random() * (map.offsetHeight / this.height)) * this.height;
+            div.style.position = "absolute";
+            div.style.left = this.x + "px";
+            div.style.top = this.y + "px";
+            // 将这个食物添加到数组中
+            element.push(div);
+        };
+
+        // 删除食物的私有函数，外部不可访问
+        function remove() {
+            // 遍历数组，找到对应的元素，通过查找这个元素的父元素，删除这个父元素的子元素，同时将数组中的这个元素删除
+            for (var i = 0; i < element.length; i++) {
+                var ele = element[i];
+                ele.parentNode.removeChild(ele);
+                element.splice(i, 1);
+            }
+        }
+
+        // 外部可以使用Food对象
+        win.Food = Food;
+    }(window));
+
+    // 自调用函数：蛇
+    (function (win) {
+        var element = [];
+
+        // 蛇的构造函数
+        function Snake(width, height, direction) {
+            // 设置组成蛇的每一部分的大小
+            this.width = width || 20;
+            this.height = height || 20;
+            // 设置蛇的位置，颜色
+            this.body = [
+                {x: 3, y: 2, color: "#01330b"}, //头
+                {x: 2, y: 2, color: "#489963"}, //身体
+                {x: 1, y: 2, color: "#489963"}  //身体
+            ];
+            // 设置蛇头朝向
+            this.direction = direction || "right";
+        }
+
+        // 为蛇的构造函数的原型对象添加初始化方法
+        Snake.prototype.init = function (map) {
+            // 初始化之前先删除蛇
+            remove();
+            // 遍历body数组
+            for (var i = 0; i < this.body.length; i++) {
+                // 创建并添加组成蛇的方块
+                var div = document.createElement('div');
+                map.appendChild(div);
+                // 设置蛇的样式
+                div.style.width = this.width + "px";
+                div.style.height = this.height + "px";
+                div.style.left = this.body[i].x * this.width + "px";
+                div.style.top = this.body[i].y * this.height + "px";
+                div.style.position = "absolute";
+                div.style.backgroundColor = this.body[i].color;
+                // 将此时的蛇保存到数组中
+                element.push(div);
+            }
+        };
+
+        // 为蛇的构造函数的原型对象添加移动方法
+        Snake.prototype.move = function (food, map) {
+            // 蛇身体移动，蛇身体移动的原理是将除了头之外的部分，将前一个小方块的坐标赋值给后一个
+            for (var i = this.body.length - 1; i > 0; i--) {
+                this.body[i].x = this.body[i - 1].x;
+                this.body[i].y = this.body[i - 1].y;
+            }
+            // 蛇头移动根据direction的值进行横纵坐标的加减
+            switch (this.direction) {
+                case "left":
+                    this.body[0].x -= 1;
+                    break;
+                case "right":
+                    this.body[0].x += 1;
+                    break;
+                case "top":
+                    this.body[0].y -= 1;
+                    break;
+                case "bottom":
+                    this.body[0].y += 1;
+                    break;
+            }
+            console.log(this.body[0].x + "=======" + food.x)
+            // 判断是否吃了食物，如果蛇头坐标和食物的相同，即吃了食物
+            if (this.body[0].x * this.width == food.x && this.body[0].y * this.height == food.y) {
+                // 如果吃了食物，则将蛇尾最后一块复制一份放在最后
+                var last = this.body[this.body.length - 1];
+                this.body.push({
+                    x: last.x,
+                    y: last.y,
+                    color: last.color
+                });
+                // 蛇吃掉食物，则删除原来的，创建一个新的。所以直接调用Food.init方法就好
+                food.init(map);
+            }
+        };
+
+        // 删除蛇的函数，私有函数
+        function remove() {
+            for (var i = element.length - 1; i >= 0; i--) {
+                var ele = element[i];
+                ele.parentNode.removeChild(ele);
+                element.splice(i, 1);
+            }
+        }
+
+        win.Snake = Snake;
+    }(window));
+
+    // 自调用函数：游戏
+    (function (win) {
+        // 将指向Game构造函数的this保存到that中，方便调用
+        var that = null;
+
+        // 游戏的构造函数
+        function Game(map) {
+            this.map = map;
+            this.food = new Food();
+            this.snake = new Snake();
+            that = this;
+        }
+
+        // 游戏的构造函数的原型对象添加初始化方法，为了让蛇和食物显示出来
+        Game.prototype.init = function () {
+            this.food.init(this.map);
+            this.snake.init(this.map);
+            this.autoMove(this.map, this.food);
+            this.bindKey();
+        };
+
+        // 游戏的构造函数的原型对象添加自动移动方法，因为是自动移动，所以使用定时器
+        Game.prototype.autoMove = function (map, food) {
+            var intervalId = setInterval(function () {
+                // 蛇每次移动：先移动(计算移动后的坐标)再初始化(删除原来的蛇并绘制新的蛇)
+                // 此时this如果不特别说明，默认是window(因为window.setInterval)，所以在计时器的匿名函数最后用.bind(that)，将this指向that，即Game的实例对象game
+                this.snake.move(food, map);
+                this.snake.init(map);
+                // 判断蛇头的坐标是否出了地图，如果为true则结束游戏(即清除定时器)
+                if (this.snake.body[0].x >= map.offsetWidth / this.snake.width || this.snake.body[0].x < 0) {
+                    alert("GAME OVER !");
+                    clearInterval(intervalId);
+                }
+                if (this.snake.body[0].y >= map.offsetHeight / this.snake.height || this.snake.body[0].y < 0) {
+                    alert("GAME OVER !");
+                    clearInterval(intervalId);
+                }
+            }.bind(that), 150);
+        };
+
+        // 为游戏构造函数的原型对象添加按键操作方法
+        Game.prototype.bindKey = function () {
+            document.addEventListener("keydown", function (e) {
+                switch (e.keyCode) {
+                    case 37:
+                        this.snake.direction = "left";
+                        break;
+                    case 38:
+                        this.snake.direction = "top";
+                        break;
+                    case 39:
+                        this.snake.direction = "right";
+                        break;
+                    case 40:
+                        this.snake.direction = "bottom";
+                        break;
+                }
+            }.bind(that), false);
+        };
+
+        win.Game = Game;
+    }(window));
+
+    var startGame = new Game(document.querySelector('.map'));
+    startGame.init();
+
+
+    // // 实例化食物对象
+    // var food = new Food();
+    // // 调用init方法创建食物，传入地图元素
+    // food.init(document.querySelector('.map'));
+    //
+    // // 实例化蛇对象
+    // var snake = new Snake();
+    // snake.init(document.querySelector('.map'));
+    // // snake.move(food,document.querySelector('.map'));
+    // setInterval(function () {
+    //     snake.move(food,document.querySelector('.map'));
+    //     snake.init(document.querySelector('.map'));
+    // },200);
+    //
+    // // 测试代码
+    // console.log(document.querySelector('.map').offsetHeight + "====" + food.height);
+    // console.log(food.x + "======" + food.y);
+</script>
+</body>
+</html>

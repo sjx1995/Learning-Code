@@ -15,9 +15,9 @@
 
     var dog = new Dog(20);
     // 原型链的指向
-    console.log(Dog.prototype == dog.__proto__); // true
-    console.log(Dog.prototype.__proto__ == dog.__proto__.__proto__); // true
-    console.log(Dog.prototype.__proto__ == Object.prototype); // true
+    console.log(Dog.prototype === dog.__proto__); // true
+    console.log(Dog.prototype.__proto__ === dog.__proto__.__proto__); // true
+    console.log(Dog.prototype.__proto__ === Object.prototype); // true
     console.log(Dog.prototype.__proto__.__proto__ == null); // true
 
 

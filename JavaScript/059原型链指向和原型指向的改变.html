@@ -8,13 +8,13 @@
 <script>
     // 原型链：实例对象通过__proto__和原型对象联系，这个关系叫做原型链
 
-
+    // 原型链的指向
     function Dog(age) {
         this.age = age;
     }
 
+    // 任何构造函数的原型对象中都有__proto__且指向构造函数的原型对象，只有Object.__proto__指向null
     var dog = new Dog(20);
-    // 原型链的指向
     console.log(Dog.prototype === dog.__proto__); // true
     console.log(Dog.prototype.__proto__ === dog.__proto__.__proto__); // true
     console.log(Dog.prototype.__proto__ === Object.prototype); // true
@@ -52,7 +52,7 @@
     var stu = new Student();
     console.log(stu.sex);
     stu.sayHi();
-    stu.sayHello();
+    stu.sayHello(); // stu.sayHello is not a function
 
 
 </script>

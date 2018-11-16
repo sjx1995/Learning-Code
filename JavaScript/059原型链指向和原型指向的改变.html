@@ -41,7 +41,7 @@
 
     // 改变原型的指向
     // 实例化Person，并且将Student构造函数的原型对象(prototype)指向Person的原型对象
-    // 一般构造函数的prototype默认指向它的原型对象，原型对象的__proto__默认指向它所在的构造函数
+    // 一般构造函数的prototype默认指向它的原型对象，原型对象的构造器(constructor)默认指向它所在的构造函数
     // 这里，Student被强制指向了Person的实例对象，所以Student构造函数和Student的原型对象之间的连接没有了
     Student.prototype = new Person("male");
     // 实例化Student，Student实例对象默认指向他对应的构造函数的原型对象(prototype)

@@ -8,18 +8,34 @@
 <script>
     // 原型链：实例对象通过__proto__和原型对象联系，这个关系叫做原型链
 
+
+    function Dog(age) {
+        this.age = age;
+    }
+
+    var dog = new Dog(20);
+    // 原型链的指向
+    console.log(Dog.prototype == dog.__proto__); // true
+    console.log(Dog.prototype.__proto__ == dog.__proto__.__proto__); // true
+    console.log(Dog.prototype.__proto__ == Object.prototype); // true
+    console.log(Dog.prototype.__proto__.__proto__ == null); // true
+
+
     // 原型指向是可以改变的
     function Person(sex) {
         // 构造函数中的this指向了构造函数对应的实例对象
-        this.sex=sex;
+        this.sex = sex;
     }
-    Person.prototype.sayHi=function () {
+
+    Person.prototype.sayHi = function () {
         console.log("Person的原型对象中的sayHi方法");
     };
+
     function Student() {
-        
+
     }
-    Student.prototype.sayHello=function () {
+
+    Student.prototype.sayHello = function () {
         console.log("Student的原型对象中sayHello方法");
     };
 
@@ -27,13 +43,13 @@
     // 实例化Person，并且将Student构造函数的原型对象(prototype)指向Person的原型对象
     // 一般构造函数的prototype默认指向它的原型对象，原型对象的__proto__默认指向它所在的构造函数
     // 这里，Student被强制指向了Person的实例对象，所以Student构造函数和Student的原型对象之间的连接没有了
-    Student.prototype=new Person("male");
+    Student.prototype = new Person("male");
     // 实例化Student，Student实例对象默认指向他对应的构造函数的原型对象(prototype)
     // 所以Student实例对象本来应该指向Student的原型对象，但因为Student构造函数指向了Person的实例对象，所以此时Student的实例对象也指向了Person的实例对象
     // 构造函数的prototype指向改变时，实例对象的__proto__的指向也会改变
     // Person的实例对象默认是指向他对应的构造函数(Person构造函数)的prototype指向的Person的原型对象
     // 所以下面的stu.sex和stu.sayHi()分别输出了Person.sex和Person.prototype.sayHi()；而stu.Hello因为Student的实例对象不再指向Student的原型对象(原型链被改变了)，所以报错了
-    var stu=new Student();
+    var stu = new Student();
     console.log(stu.sex);
     stu.sayHi();
     stu.sayHello();

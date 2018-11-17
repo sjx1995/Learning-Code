@@ -13,12 +13,15 @@
         this.age = age;
     }
 
-    // 任何构造函数的原型对象中都有__proto__，只有Object.__proto__指向null
+    // 任何构造函数的原型对象中都有__proto__，只有Object没有__proto__
     var dog = new Dog(20);
     console.log(Dog.prototype === dog.__proto__); // true
     console.log(Dog.prototype.__proto__ === dog.__proto__.__proto__); // true
     console.log(Dog.prototype.__proto__ === Object.prototype); // true
-    console.log(Dog.prototype.__proto__.__proto__ == null); // true
+    console.log(Dog.prototype.__proto__.__proto__); // null
+
+
+    // 任何对象(构造函数也是对象)都有__proto__，所有对象的原型链最终都指向了Object
 
 
     // 原型指向是可以改变的

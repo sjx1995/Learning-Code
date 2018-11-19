@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * js中继承是通过改变原型对象的指向来实现的
+    *
+    * 继承是一种父类(class)与子类之间的关系
+    * JS中没有类(class)的概念，但是可以通过构造函数来模拟类
+    * 通过原型实现继承是为了数据共享
+    *
+    * 原型的作用一：数据共享，节省内存
+    * 原型的作用二：实现继承
+    *
+    * */
+
+    //动物有名字,有体重,有吃东西的行为
+    //小狗有名字,有体重,有毛色, 有吃东西的行为,还有咬人的行为
+    //哈士奇名字,有体重,有毛色,性别, 有吃东西的行为,还有咬人的行为,逗主人开心的行为
+
+    // 动物的构造函数和原型方法
+    function Animal(name, weight) {
+        this.name = name;
+        this.weight = weight;
+    }
+
+    Animal.prototype.eat = function () {
+        console.log("动物的吃行为");
+    };
+
+    // 狗的原型指向改变，此时狗与动物已经发生关系
+    // 需要注意的是，要先改变指向再在原型中定义方法
+    Dog.prototype = new Animal("二哈", "15Kg");
+
+    // 狗的构造函数和原型方法
+    function Dog(color) {
+        this.color = color;
+    }
+
+    Dog.prototype.bit = function () {
+        console.log("狗的咬人行为")
+    };
+
+    // 哈士奇的原型指向发生改变，此时哈士奇与狗已经发生关系
+    Husky.prototype = new Dog("黄色");
+
+    // 哈士奇的构造函数和原型方法
+    function Husky(sex) {
+        this.sex = sex;
+    }
+
+    Husky.prototype.tease = function () {
+        console.log("哈士奇的逗人行为")
+    };
+
+    var husky = new Husky("公");
+
+    // 继承来自狗的属性和方法
+    console.log(husky.name);
+    console.log(husky.weight);
+    husky.eat();
+    // 继承来自狗的属性和方法
+    console.log(husky.color);
+    husky.bit();
+    // 哈士奇独有的属性和方法
+    console.log(husky.sex);
+    husky.tease();
+
+</script>
+</body>
+</html>

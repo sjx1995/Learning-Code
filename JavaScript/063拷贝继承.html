@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拷贝继承</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 拷贝继承就是将一个对象中的属性和方法在堆中复制一份，并让另外一个对象指向新的复制
+    *
+    * 下面的例子的拷贝继承是浅拷贝
+    *
+    * */
+    function Person() {
+
+    }
+
+    Person.prototype.name = "小明";
+    Person.prototype.age = 18;
+    Person.prototype.sayHi = function () {
+        console.log("Person原型中的sayHi方法");
+    };
+
+    var obj = {};
+    for (var key in Person.prototype) {
+        obj[key] = Person.prototype[key];
+    }
+
+    console.log(obj.name, obj.age);
+    obj.sayHi();
+
+</script>
+</body>
+</html>

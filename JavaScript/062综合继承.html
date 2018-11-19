@@ -17,19 +17,21 @@
     *
     * */
 
-    function Person(name, age, location) {
+    function Person(name, age) {
         this.name = name;
         this.age = age;
-        this.location = location;
     }
+
+    // 若子类中属性不变，则在原型中添加属性
+    Person.prototype.location = "China";
 
     Person.prototype.sayHi = function () {
         console.log("Person原型中的sayHi方法");
     };
 
     function Student(name, age) {
-        // 通过借用构造函数实现继承，其中China为每个子类中相同的值
-        Person.call(this, name, age, "China");
+        // 通过借用构造函数实现继承
+        Person.call(this, name, age);
     }
 
     // 通过原型实现继承，这里改变了Student的原型指向，使子类(Student)和父类(Person)之间发生了关系

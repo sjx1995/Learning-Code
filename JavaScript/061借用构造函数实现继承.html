@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>借用构造函数实现继承</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 因为改变原型指向时同时初始化了值，当多个子类同时继承了父类的属相后，值是相同的
+    * 如果希望子类继承的属相的值不同，则需要借用构造函数实现继承
+    *
+    * */
+
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    Person.prototype.sayHi = function () {
+        console.log("Person中的sayHi方法");
+    };
+
+    function Student(name, age, course, soccer) {
+        // 使用call方法借用构造函数实现继承，要先传入this
+        Person.call(this, name, age);
+        this.course = course;
+        this.soccer = soccer;
+    }
+
+    var stu1 = new Student("小明", 15, "语文", 100);
+    console.log(stu1.name, stu1.age, stu1.course, stu1.soccer);
+    var stu2 = new Student("小王", 16, "数学", 80);
+    console.log(stu2.name, stu2.age, stu2.course, stu2.soccer);
+    var stu3 = new Student("小张", 14, "英语", 95);
+    console.log(stu3.name, stu3.age, stu3.course, stu3.soccer);
+
+    // 但是借用构造函数实现继承，无法使用父类的方法
+    stu1.sayHi(); // stu1.sayHi() is not a function
+</script>
+</body>
+</html>

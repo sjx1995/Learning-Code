@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bind的使用</title>
+</head>
+<body>
+<script>
+    // 得到一个随机数的构造函数
+    function getNumber() {
+        this.number = Math.random();
+    }
+
+    // 显示一次数字
+    getNumber.prototype.showNumber = function () {
+        console.log(this.number);
+    };
+    // 每500ms显示一次数字
+    getNumber.prototype.showMoreNumber = function () {
+        // .bind(this)将此处的this值从window变成getNumber
+        window.setInterval(this.showNumber.bind(this), 500)
+    };
+
+    // 实例化对象
+    var sn = new getNumber();
+    sn.showNumber();
+    console.log("=====");
+    sn.showMoreNumber();
+</script>
+</body>
+</html>

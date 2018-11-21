@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>apply、call和bind</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * apply、call 和 bind 都可以改变this的指向
+    * apply 和 call 是在函数调用的时候改变this的指向
+    * bind 是先复制一份之后改变复制体的this的指向
+    *
+    * apply 和 call 中若是不传值或传入null，则this为默认的window
+    *
+    * 语法：
+    * 函数名.apply(对象,[参数1,参数2...]);
+    * 方法名.apply(对象,[参数1,参数2...]);
+    *
+    * 函数名.call(对象,参数1,参数2...);
+    * 方法名.call(对象,参数1,参数2...);
+    *
+    * 函数名.bind(对象,参数1,参数2...);
+    * 方法名.bind(对象,参数1,参数2...);
+    * bind方法的返回值是复制之后的这个函数、方法
+    *
+    * */
+    function F1(x, y) {
+        this.num1 = x;
+        this.num2 = y;
+    }
+
+    F1.prototype.plus = function (f) {
+        console.log("num1:" + this.num1 + " ===== num2:" + this.num2 + " ===== " + f + " ===== " + this);
+    };
+
+    function F2(x, y) {
+        this.num1 = x;
+        this.num2 = y;
+    }
+
+    var f1 = new F1(10, 20);
+    f1.plus("f1.plus");
+
+    var f2 = new F2(30, 40);
+    f1.plus.call(f2, "f1.plus.call()");
+    f1.plus.apply(f2, ["f1.plus.apply()"]);
+    var ff = f1.plus.bind(f2, "f1.plus.bind()");
+    ff();
+</script>
+</body>
+</html>

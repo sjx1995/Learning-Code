@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    function f1(x,y) {
+    function f1(x, y) {
         // 函数名，只读
         console.log(f1.name);
         // 函数实参个数
@@ -16,9 +16,11 @@
         // 函数的调用者
         console.log(f1.caller);
     }
+
     function f2() {
-        f1(1,2,3,4);
+        f1(1, 2, 3, 4);
     }
+
     f2();
 </script>
 </body>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用闭包统计次数</title>
+    <style>
+        table {
+            text-align: center;
+            margin: 100px auto;
+        }
+
+        thead {
+            font-weight: 700;
+        }
+
+        table tr td:nth-child(1) {
+            width: 100px;
+        }
+
+        table tr td:nth-child(2) {
+            width: 300px;
+        }
+
+        table tbody tr td:nth-child(1) {
+            cursor: pointer;
+        }
+
+        tbody tr:nth-child(1) td:nth-child(1) {
+            background-color: #ff3645;
+        }
+
+        tbody tr:nth-child(2) td:nth-child(1) {
+            background-color: #1ba85a;
+        }
+
+        tbody tr:nth-child(3) td:nth-child(1) {
+            background-color: #47a6ff;
+        }
+
+        tbody tr:nth-child(4) td:nth-child(1) {
+            background-color: #f3ff3f;
+        }
+    </style>
+</head>
+<body>
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+    <tr>
+        <td>点击内容</td>
+        <td>点击次数</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td>红色被点击的次数<span>0</span>次</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>绿色被点击的次数<span>0</span>次</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>蓝色被点击的次数<span>0</span>次</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>黄色被点击的次数<span>0</span>次</td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    // 获取所有的td标签
+    var colorTd = document.getElementsByTagName('td');
+
+    // 利用闭包缓存数据，这样每一个span中的数据就会分开记录了
+    function getClickNum() {
+        var num = 1;
+        return function () {
+            this.nextElementSibling.firstElementChild.innerHTML = num++;
+        }
+    }
+
+    // 循环注册点击事件，点击颜色块时将执行上面函数的返回值(修改文字的函数)
+    for (var i = 2; i < colorTd.length; i += 2) {
+        colorTd[i].onclick = getClickNum();
+    }
+</script>
+</body>
+</html>

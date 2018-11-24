@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 闭包
+    *
+    * 闭包的模式：函数模式的闭包，对象模式的闭包
+    *
+    * 闭包的作用：缓存数据，延长作用域链
+    *
+    * 闭包的缺点：缓存数据(不能及时释放变量)
+    *
+    * 局部变量会在函数执行之后释放自身，但闭包后，局部变量的作用域链就会被延长，数据不会被及时释放(数据被缓存起来了)
+    *
+    * */
+
+    // 函数模式的闭包
+    function f1() {
+        var num = 1;
+
+        function f2() {
+            console.log(num);
+        }
+
+        f2();
+    }
+
+    f1();
+
+
+    // 对象模式的闭包
+    function f3() {
+        var snap = 2;
+        var obj = {
+            num: snap
+        };
+        console.log(obj.num);
+    }
+
+    f3();
+
+
+    // 闭包，缓存数据
+    function f4() {
+        var num = 3;
+        return function () {
+            console.log(num);
+            return num;
+        }
+    }
+
+    var ff = f4();
+    var result = ff();
+    console.log(result);
+
+
+    // 闭包，缓存数据
+    function f5() {
+        return {
+            num: 4,
+        }
+    }
+
+    var obj = f5();
+    console.log(obj.num);
+
+
+    // 函数类型的闭包，num数据只被定义了一次，之后使用的时候都是在操作缓存中的数据
+    function f6() {
+        var num = 4;
+        return function () {
+            num++;
+            return num;
+        }
+    }
+
+    var ff6 = f6();
+    console.log(ff6()); // 5
+    console.log(ff6()); // 6
+    console.log(ff6()); // 7
+
+</script>
+</body>
+</html>

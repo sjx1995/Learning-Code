@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>沙箱</title>
+</head>
+<body>
+<script>
+    // 沙箱模式的基本模型
+    // 沙箱不影响沙箱外的变量
+    var num = 10;
+    // 沙箱1：
+    (function () {
+        var num = 20;
+        console.log(num);
+    })();
+    // 沙箱2：
+    (function () {
+        var num = 30;
+        console.log(num);
+    }());
+
+    console.log(num);
+</script>
+</body>
+</html>

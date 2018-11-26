@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>递归</title>
+</head>
+<body>
+<script>
+    // 递归：函数中调用这个函数自己，一定要有结束条件
+
+    // 递归：求从1到x的所有整数的和
+    var x = 100;
+
+    // 函数传入x，若为1，则将1赋值给x并跳出函数(不执行之后的代码)；若不为1，则返回x+getSun(x)的值，这里getSum()这个函数又被调用了一次，并传入了值x-1
+    function getSum(x) {
+        if (x === 1) {
+            return 1;
+        }
+        return x + getSum(x - 1);
+    }
+
+    // 输出1到100的所有整数和
+    console.log(getSum(100));
+
+
+    // 数列：求一个非负整数数字各个位数上的和
+    function getEverySum(x) {
+        if (x < 10) {
+            return x;
+        }
+        return getEverySum(parseInt(x / 10)) + x % 10;
+    }
+
+    console.log(getEverySum(123));
+
+
+    // 递归：斐波那契数列的第x个数
+    /**
+     * @return {number}
+     */
+    function Fibonacci(x) {
+        if (x === 1 || x === 2) {
+            return 1;
+        }
+        return Fibonacci(x - 1) + Fibonacci(x - 2);
+    }
+
+    //1 1 2 3 5 8 13 21 34 55
+    console.log(Fibonacci(10));
+</script>
+</body>
+</html>

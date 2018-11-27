@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浅拷贝和深拷贝</title>
+</head>
+<body>
+<script>
+    /*
+    *
+    * 浅拷贝：
+    * 把一个对象中的所有内容全部复制到新的对象中；或者将原来的对象的地址赋值给新的对象
+    *
+    * 深拷贝：
+    * 把一个对象中的所有内容，一个一个地找出，然后在新的对象中开辟一块新的空间，并把它们一个一个地存储起来
+    *
+    * 浅拷贝和深拷贝只针对复杂类型，当对象a 拷贝到 对象b 后，修改对象b中的属性的值：
+    * 如果是浅拷贝到对象b，则修改对象b的属性的值会同时修改对象a
+    * 如果是深拷贝到对象b，则修改对象b的属性的值不会影响对象a的属性的值
+    *
+    * */
+
+    // 定义对象1 空对象2 空对象3
+    var obj1 = {
+        age: 10,
+        like: ['足球', '篮球', '排球'],
+        growUp: function () {
+            this.age = 11;
+        },
+        dog: {
+            name: "大黄",
+            age: 2
+        }
+    };
+
+    var obj2 = {};
+    var obj3 = {};
+
+    // 定义函数浅拷贝函数，将对象a中的内容赋值给对象2
+    function shallowCopy(a, b) {
+        for (var key in a) {
+            b[key] = a[key];
+        }
+    }
+
+    shallowCopy(obj1, obj2);
+
+    // 对象2中的内容和对象1一样，即浅拷贝成功
+    console.dir(obj1);
+    console.dir(obj2);
+
+
+    // 定义深拷贝函数
+    function deepCopy(a, b) {
+        // 遍历对象a中的每一个属性，并将其赋值给item
+        for (var key in a) {
+            var item = a[key];
+            // 如果属性是数组类型，则在对象b中创建一个空数组，再调用深拷贝函数，将item的值一个一个取出来，在创建的空数组中开辟空间并一个一个存入
+            if (item instanceof Array) {
+                b[key] = [];
+                deepCopy(item, b[key]);
+            }
+            // 如果属性是对象类型，则在对象b中创建一个空对象，再调用深拷贝函数，将item的值一个一个取出来，在新创建的空对象中开辟空间并一个一个存入
+            else if (item instanceof Object) {
+                b[key] = {};
+                deepCopy(item, b[key]);
+            }
+            // 如果属性是普通的值，则直接复制到对象b的这个属性中
+            else {
+                b[key] = item;
+            }
+        }
+    }
+
+    deepCopy(obj1, obj3);
+
+    // 对象1 和 对象3中的内容一致，说明深拷贝成功
+    console.dir(obj1);
+    console.dir(obj3);
+</script>
+</body>
+</html>

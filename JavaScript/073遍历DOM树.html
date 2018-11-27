@@ -5,6 +5,47 @@
     <title>遍历DOM树</title>
 </head>
 <body>
+<h1>遍历DOM树</h1>
+<hr>
+<div>
+    <p>今日中奖号码</p>
+    <ul>
+        <li>123456789</li>
+        <li>234567789</li>
+        <li>098657908</li>
+    </ul>
+</div>
+<div>
+    <a href="#">详情点击链接</a>
+</div>
+<script>
+    // 找到文档的根节点：HTML
+    var root = document.documentElement;
 
+    // 遍历DOM树函数，将此时的根节点的子节点作为参数传递给forChildren()函数
+    function forDOM(root) {
+        var children = root.children;
+        forChildren(children);
+    }
+
+    // 遍历子节点函数，输出此时根节点(父节点)的子节点，并判断子节点是否还有子节点，如果有则将此时父节点的子节点看作根节点，作为参数调用forDOM()函数
+    function forChildren(children) {
+        for (var i = 0; i < children.length; i++) {
+            showNodeName(children[i]);
+            if (children[i].children) {
+                forDOM(children[i])
+            }
+        }
+    }
+
+    // 显示节点名的函数
+    function showNodeName(node) {
+        console.log(node.nodeName);
+    }
+
+    // 调用遍历节点的函数
+    forDOM(root);
+
+</script>
 </body>
 </html>

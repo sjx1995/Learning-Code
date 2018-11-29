@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            border: 1px solid #000000;
+            margin: 80px auto;
+            width: 1000px;
+            padding: 100px;
+            position: relative;
+        }
+
+        label {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 18px;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+        input {
+            width: 300px;
+            height: 30px;
+            border: 1px solid #cccccc;
+            padding-left: 5px;
+            margin: 15px 0;
+        }
+
+        .container {
+            color: red;
+            border: 1px solid #cccccc;
+            height: 12px;
+            width: 300px;
+            position: absolute;
+            left: 200px;
+            top: 230px;
+        }
+
+        /*密码强度*/
+        .pwd-strength-1 {
+            height: 10px;
+            width: 100px;
+            background-color: red;
+        }
+
+        .pwd-strength-2 {
+            height: 10px;
+            width: 199px;
+            background-color: orange;
+        }
+
+        .pwd-strength-3 {
+            height: 10px;
+            width: 298px;
+            background-color: green;
+        }
+
+        span {
+            margin-left: 15px;
+            font-size: 14px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <label for="username">用户名</label><input type="text" id="username" placeholder="请输入用户名(英文或数字)"><span></span><br>
+    <label for="password">密码</label><input type="password" id="password" placeholder="请输入密码(6到18位)"><span></span><br>
+    <em>密码强度</em>
+    <div class="container">
+        <div id="pwd-strength"></div>
+    </div>
+    <br>
+    <label for="email">QQ</label><input type="text" id="qq" placeholder="请输入QQ号"><span></span><br>
+    <label for="email">邮箱</label><input type="text" id="email" placeholder="请输入邮箱"><span></span><br>
+    <label for="phone">手机</label><input type="text" id="phone" placeholder="请输入11位手机号"><span></span><br>
+    <label for="name">姓名</label><input type="text" id="name" placeholder="请输入中文姓名"><span></span><br>
+</div>
+
+<script>
+    // 验证用户名
+    checkInput(document.getElementById('username'), /^[0-9a-zA-Z]{6,12}$/, '输入正确', '用户名为6到12位的字母和数字的组合');
+
+    // 验证qq号
+    checkInput(document.getElementById('qq'), /^[1-9][0-9]{4,10}$/, '输入正确', 'QQ号为5到11位的数字组合');
+
+    // 验证邮箱
+    checkInput(document.getElementById('email'), /^[0-9a-zA-Z._-]+[@][0-9a-zA-Z._-]+([.][a-zA-Z]+){1,2}$/, '输入正确', '邮箱格式错误');
+
+    // 验证手机号
+    checkInput(document.getElementById('phone'), /^[1][0-9]{10}$/,'输入正确','请输入正确的11位手机号');
+
+    // 中文名长度在2到6个汉字之间，不允许有字母数字符号等
+    // 中文unicode范围：[\u4e00-\u9fa5]
+    checkInput(document.getElementById('name'), /^[\u4e00-\u9fa5]{2,6}$/, '输入正确', '请输入正确的中文姓名');
+
+    // 验证输入是否合法的函数，参数：输入框id，正则表达式，输入正确提示，输入错误提示
+    function checkInput(inputId, reg, successful, failure) {
+        // 为文本框注册失去焦点的事件
+        inputId.onblur = function () {
+            // 输入合法，修改文本框背景为绿色，输出绿色的提示文字
+            if (reg.test(this.value)) {
+                this.style.backgroundColor = "#53A873";
+                this.nextElementSibling.innerHTML = successful;
+                this.nextElementSibling.style.color = "#53A873";
+            }
+            // 输入不合法，修改文本框背景为红色，输出红色提示文字
+            else {
+                this.style.backgroundColor = "#FF6663";
+                this.nextElementSibling.innerHTML = failure;
+                this.nextElementSibling.style.color = "#FF6663";
+            }
+        }
+    }
+
+    // 验证密码输入是否合法
+    // 为密码文本框注册按键抬起事件，输入一个字符后(大于六位时)调用level()函数判断密码强度
+    document.getElementById('password').onkeyup = function () {
+        // 根据level()函数的返回值(密码强度)，修改色块的class值
+        var strength = level(this.value);
+        if (this.value.length >= 6 && this.value.length <= 18) {
+            document.getElementById('pwd-strength').className = "pwd-strength-" + strength;
+            this.style.backgroundColor = "#53A873";
+            this.nextElementSibling.innerHTML = '输入正确';
+            this.nextElementSibling.style.color = "#53A873";
+        } else {
+            document.getElementById('pwd-strength').className = null;
+            this.style.backgroundColor = "#FF6663";
+            this.nextElementSibling.innerHTML = '密码应为6-18位的数字字母特殊符号的组合';
+            this.nextElementSibling.style.color = "#FF6663";
+        }
+    };
+
+    // 判断密码强度的函数
+    // 密码由字母、数字、特殊符号组成，如果只含其中一种，则密码强度为1；含其中两种，则密码强度为2；含其中三种，密码强度为3
+    // 函数最后的返回值为密码强度(数字)
+    function level(pwd) {
+        var lvl = 0;
+        if (/\d/.test(pwd)) {
+            lvl++;
+        }
+        if (/[a-zA-Z]/.test(pwd)) {
+            lvl++;
+        }
+        if (/[^0-9a-zA-Z]/.test(pwd)) {
+            lvl++;
+        }
+        return lvl;
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery如跨函数</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        /*
+        *
+        * Js原生的入口函数会等到Html文档和图片加载完成后才会执行
+        * jQuery的入口函数在文档加载完成后就会执行
+        * 所以，以下代码js的原生入口函数会最后输出
+        *
+        * */
+
+        // JavaScript的入口函数
+        window.onload = function () {
+            console.log("JavaScript的入口函数")
+        };
+
+        // jQuery的第一种入口函数
+        $(document).ready(function () {
+            console.log("jQuery的第一种入口函数");
+        });
+
+        // jQuery的第二种入口函数
+        $(function () {
+            console.log("jQuery的第二种入口函数");
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

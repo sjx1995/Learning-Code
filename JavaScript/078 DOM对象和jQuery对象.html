@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM对象 和 jQuery对象</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        /*
+        *
+        * DOM对象：即js对象。是通过js的方式获取到的元素对象
+        *   如：document.getElementById('button');
+        *
+        * jQuery对象：通过jQuery的方式获取到的元素对象
+        *   如：$("#button")
+        *
+        * DOM对象不能调用jQuery对象的的方法
+        * jQuery也不能调用DOM对象的方法
+        *
+        * jQuery对象就是DOM对象的一个集合。jQuery对象是一个伪数组，里面存放了大量的DOM对象
+        *
+        * DOM对象转换为jQuery对象：
+        * var btn = document.getElementById('button');
+        * $(btn).text('DOM对象使用jQuery方法');
+        *
+        * jQuery对象转换DOM对象
+        * var $btn = $('#button');
+        * $btn[0].innerHTML = '写法一：jQuery调用DOM对象的方法';
+        * $btn.get(0).innerHTML = '写法二：jQuery调用DOM对象的方法';
+        *
+        *
+        *
+        * jQuery中的 $ 是一个函数，所以使用需要后接括号
+        *
+        * 1. 入口函数：
+        *       $(function () {
+        *
+        *       })
+        *
+        * 2. 把DOM对象转换为jQuery对象
+        *       $(document).ready(function () {
+        *
+        *       })
+        *
+        * 3. 字符串作为参数，用来找对象
+        *       $("#button").text = "BTN";
+        *
+        * */
+
+
+        // jQuery设定样式
+        $(function () {
+            $(".box").css("backgroundColor", "pink");
+        })
+
+    </script>
+</head>
+<body>
+<div class="box"></div>
+</body>
+</html>

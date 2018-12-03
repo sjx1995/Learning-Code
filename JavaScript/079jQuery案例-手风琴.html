@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手风琴菜单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrap {
+            width: 600px;
+            text-align: center;
+            margin: 60px auto;
+            list-style: none;
+        }
+
+        .menu-group {
+            border: 1px solid #000000;
+            background-color: #bfbfbf;
+        }
+
+        .group-title {
+            display: block;
+            font-size: 24px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #47a6ff;
+            border-bottom: 1px solid #000000;
+            cursor: pointer;
+        }
+
+        .group-container {
+            height: 200px;
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="jquery-1.12.4.js"></script>-->
+    <script>
+        $(function () {
+            // 为抽屉的标题注册单击事件，把当前标题的文本框(下一个兄弟元素)显示出来，并把其他的文本框(其父元素的兄弟元素的class="group-container"的子元素)隐藏起来
+            $(".group-title").click(function () {
+                // 链式编程，jQuery中的方法可以一直调用下去
+                $(this).next().slideDown(400).parent().siblings().children(".group-container").slideUp(400);
+            })
+        })
+    </script>
+</head>
+<body>
+<ul class="wrap">
+    <li class="menu-group">
+        <span class="group-title">抽屉一</span>
+        <div class="group-container"></div>
+    </li>
+    <li class="menu-group">
+        <span class="group-title">抽屉二</span>
+        <div class="group-container"></div>
+    </li>
+    <li class="menu-group">
+        <span class="group-title">抽屉三</span>
+        <div class="group-container"></div>
+    </li>
+    <li class="menu-group">
+        <span class="group-title">抽屉四</span>
+        <div class="group-container"></div>
+    </li>
+</ul>
+</body>
+</html>

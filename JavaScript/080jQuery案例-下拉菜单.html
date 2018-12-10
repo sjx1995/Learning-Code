@@ -67,6 +67,10 @@
         $(".menu>li")
             .mouseenter(function () {
                 // .stop()先停止之前动画，再执行新动画
+                // 因为有动画队列的存在，所以.stop().animate()可以让当前动画立即执行
+                // .stop()方法有两个[可选]参数：
+                // 1.动画结束时是否清除动画队列，默认值为false
+                // 2.动画结束时是否跳转到最后一帧，默认值为false
                 $(this).children("ul").stop().slideDown();
             })
             .mouseleave(function () {

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉菜单</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .box {
+        margin: 120px auto;
+        width: 440px;
+    }
+
+    .menu {
+        list-style: none;
+    }
+
+    .menu > li {
+        display: inline-block;
+        background-color: skyblue;
+        position: relative;
+        width: 140px;
+        height: 40px;
+        text-align: center;
+    }
+
+    .menu > li > a {
+        font-size: 24px;
+        line-height: 40px;
+    }
+
+    .wrap {
+        position: absolute;
+        background-color: #cccccc;
+        display: none;
+    }
+
+    .wrap > li {
+        width: 138px;
+        background-color: #fff;
+        border: 1px solid #000000;
+        text-align: center;
+    }
+
+    .wrap > li > a {
+        font-size: 18px;
+        line-height: 30px;
+    }
+</style>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="jquery-1.12.4.js"></script>-->
+<script>
+    $(function () {
+        $(".menu>li")
+            .mouseenter(function () {
+                // .stop()先停止之前动画，再执行新动画
+                $(this).children("ul").stop().slideDown();
+            })
+            .mouseleave(function () {
+                $(this).children("ul").stop().slideUp();
+            });
+    });
+</script>
+<body>
+<div class="box">
+    <ul class="menu">
+        <li>
+            <a href="javascript:void(0);">下拉菜单一</a>
+            <ul class="wrap">
+                <li><a href="javascript:void(0);">下拉详单1.1</a></li>
+                <li><a href="javascript:void(0);">下拉详单1.2</a></li>
+                <li><a href="javascript:void(0);">下拉详单1.3</a></li>
+                <li><a href="javascript:void(0);">下拉详单1.4</a></li>
+                <li><a href="javascript:void(0);">下拉详单1.5</a></li>
+                <li><a href="javascript:void(0);">下拉详单1.6</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);">下拉菜单二</a>
+            <ul class="wrap">
+                <li><a href="javascript:void(0);">下拉详单2.1</a></li>
+                <li><a href="javascript:void(0);">下拉详单2.2</a></li>
+                <li><a href="javascript:void(0);">下拉详单2.3</a></li>
+                <li><a href="javascript:void(0);">下拉详单2.4</a></li>
+                <li><a href="javascript:void(0);">下拉详单2.5</a></li>
+                <li><a href="javascript:void(0);">下拉详单2.6</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);">下拉菜单三</a>
+            <ul class="wrap">
+                <li><a href="javascript:void(0);">下拉详单3.1</a></li>
+                <li><a href="javascript:void(0);">下拉详单3.2</a></li>
+                <li><a href="javascript:void(0);">下拉详单3.3</a></li>
+                <li><a href="javascript:void(0);">下拉详单3.4</a></li>
+                <li><a href="javascript:void(0);">下拉详单3.5</a></li>
+                <li><a href="javascript:void(0);">下拉详单3.6</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

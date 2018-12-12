@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹幕墙</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #cccccc;
+        overflow: hidden;
+    }
+
+    .input {
+        margin: 25px auto;
+        width: 550px;
+    }
+
+    #text {
+        width: 450px;
+        height: 40px;
+        border: 1px solid #000000;
+        font-size: 20px;
+        line-height: 40px;
+        padding-left: 5px;
+        outline: none;
+        vertical-align: top;
+    }
+
+    #button {
+        height: 40px;
+        font-size: 24px;
+        line-height: 40px;
+        border: 1px solid #000000;
+        background-color: #47a6ff;
+        padding: 0 10px;
+        cursor: pointer;
+    }
+
+    .display {
+        margin: 0 auto 50px;
+        width: 100%;
+        height: 600px;
+        background-color: #ffffff;
+        /*border: 2px solid #000000;*/
+        overflow: hidden;
+    }
+
+    span {
+        position: absolute;
+        font-size: 28px;
+        white-space: nowrap;
+    }
+</style>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="jquery-1.12.4.js"></script>-->
+<script>
+    $(function () {
+        $("#button").click(function () {
+            // 随机颜色
+            var colors = ["red", "green", "hotpink", "pink", "cyan", "yellowgreen", "purple", "deepskyblue"];
+            var randomColor = parseInt(Math.random() * colors.length);
+            // 随机高度
+            var randomY = parseInt(Math.random() * 530 + 95);
+
+            // 创建span弹幕元素
+            $("<span></span>")
+                // 设置弹幕内容
+                .text($("#text").val())
+                // 设置起始位置
+                .css("left", 1000)
+                // 设置起始高度
+                .css("top", randomY)
+                // 设置随机颜色
+                .css("color", colors[randomColor])
+                // 动画：设置结束位置，动画时间和回调函数(动画结束时摧毁span元素)
+                .animate({left: 0}, 10000, "linear", function () {
+                    $(this).remove();
+                })
+                // 将span元素添加到.display中
+                .appendTo(".display");
+            // 发送弹幕之后将文本框清空
+            $("#text").val("");
+        });
+
+        // 为文本框注册按键抬起事件，如果输入为回车，则发送弹幕
+        $("#text").keyup(function (e) {
+            if (e.keyCode === 13) {
+                $("#button").click()
+            }
+        });
+    })
+</script>
+<body>
+<div class="input">
+    <label>
+        <input type="text" id="text" placeholder="请输入弹幕">
+        <input type="button" value="发送" id="button">
+    </label>
+</div>
+<div class="display"></div>
+</body>
+</html>

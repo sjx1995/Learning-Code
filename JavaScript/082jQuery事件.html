@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery事件</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    input {
+        margin-top: 10px;
+    }
+
+    .container {
+        margin: 50px auto;
+        width: 770px;
+    }
+
+    .p-container {
+        width: 400px;
+        height: 500px;
+        padding: 20px 60px;
+        background-color: #cccccc;
+        margin: 30px auto;
+        overflow: hidden;
+    }
+</style>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="jquery-1.12.4.js"></script>-->
+<script>
+    /*
+    *
+    * jQuery事件的发展：
+    * 简单的事件绑定---->bind事件绑定---->delegate事件绑定---->on事件绑定
+    *
+    * */
+
+    // 简单的事件绑定
+    // 不支持一次性注册多个事件，不支持为动态创建的元素注册事件
+    $(function () {
+        $("#btn1").click(function () {
+            $("<p>我是新增的p元素</p>").appendTo($(".p-container"));
+        });
+    });
+
+
+    // bind事件绑定
+    // 可以为一个元素同时注册多个事件，但不能为动态创建的元素注册事件
+    $(function () {
+        $("#btn2").bind({
+            click: function () {
+                $("p").css("color", "#ff4545");
+            }
+        });
+    });
+
+
+    // delegate事件绑定（委托事件绑定）
+    // 为父元素注册委托事件，利用冒泡的特性，最终由子元素来执行
+    // 可以为一个元素同时注册多个事件
+    // 可以为动态创建的元素注册事件
+    $(function () {
+        $(".p-container").delegate("p", "click", function () {
+            // this是点击的元素
+            $(this).css("color", "#ff4545");
+            $(this).css("fontWeight", 700);
+        });
+    });
+
+    // on事件绑定
+    // 包含上面三种事件注册的优点
+    $(function () {
+        // 第二个参数如果不传选择器，则为注册简单事件；如果传了参数，则注册了委托事件
+        $(".p-container").on("click", "p", function () {
+            $(this).css("border", "1px solid #000000");
+            $(this).css("padding", 5);
+            $(this).css("width", 150);
+        })
+    })
+</script>
+<body>
+<div class="container">
+    <input type="button" value="增加一个p元素(简单事件绑定)" id="btn1">
+    <input type="button" value="修改样式(bind事件绑定)" id="btn2">
+    <input type="button" value="点击p元素样式(委托事件绑定)" id="btn3" disabled>
+    <input type="button" value="点击p元素样式(on事件绑定)" id="btn4" disabled>
+    <div class="p-container">
+        <p>我是一个p元素</p>
+        <p>我是一个p元素</p>
+    </div>
+</div>
+</body>
+</html>

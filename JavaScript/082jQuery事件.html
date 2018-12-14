@@ -16,7 +16,7 @@
 
     .container {
         margin: 50px auto;
-        width: 770px;
+        width: 850px;
     }
 
     .p-container {
@@ -26,6 +26,9 @@
         background-color: #cccccc;
         margin: 30px auto;
         overflow: hidden;
+    }
+    p{
+        width: 125px;
     }
 </style>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
@@ -52,7 +55,7 @@
     $(function () {
         $("#btn2").bind({
             click: function () {
-                $("p").css("color", "#ff4545");
+                $("p").css("backgroundColor", "#fff980");
             }
         });
     });
@@ -63,7 +66,7 @@
     // 可以为一个元素同时注册多个事件
     // 可以为动态创建的元素注册事件
     $(function () {
-        $(".p-container").delegate("p", "click", function () {
+        $(".p-container").delegate("p", "mouseenter", function () {
             // this是点击的元素
             $(this).css("color", "#ff4545");
             $(this).css("fontWeight", 700);
@@ -77,16 +80,26 @@
         $(".p-container").on("click", "p", function () {
             $(this).css("border", "1px solid #000000");
             $(this).css("padding", 5);
-            $(this).css("width", 150);
         })
-    })
+    });
+
+
+    // .off()移除事件
+    $(function () {
+        $("#btn5").on("click", function () {
+            console.log(1);
+            $(".p-container").off("click");
+        });
+    });
+
 </script>
 <body>
 <div class="container">
     <input type="button" value="增加一个p元素(简单事件绑定)" id="btn1">
     <input type="button" value="修改样式(bind事件绑定)" id="btn2">
-    <input type="button" value="点击p元素样式(委托事件绑定)" id="btn3" disabled>
-    <input type="button" value="点击p元素样式(on事件绑定)" id="btn4" disabled>
+    <input type="button" value="移入p改变颜色(委托事件绑定)" id="btn3" disabled>
+    <input type="button" value="点击p添加边框(on事件绑定)" id="btn4" disabled>
+    <input type="button" value="移除p添加边框的事件" id="btn5">
     <div class="p-container">
         <p>我是一个p元素</p>
         <p>我是一个p元素</p>

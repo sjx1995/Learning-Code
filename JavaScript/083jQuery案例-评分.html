@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评分</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box {
+        width: 200px;
+        height: 100px;
+        margin: 80px auto;
+        border: 2px solid #000000;
+        padding: 0 80px;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+        font-size: 40px;
+        line-height: 100px;
+        cursor: pointer;
+        color: #cc5a4b;
+    }
+</style>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="jquery-1.12.4.js"></script>-->
+<script>
+    $(function () {
+        var star_1 = "☆";
+        var star_2 = "★";
+
+        // 1.鼠标移入，显示评分
+        $("li").on("mouseenter",function () {
+            // .end() 将返回的对象设置为上一个对象
+            // 下面一行代码若不使用.end()为：
+            // $(this).text(star_2).prevAll().text(star_2);     这里返回的是this之前的li
+            // $(this).nextAll().text(star_1);
+            $(this).text(star_2).prevAll().text(star_2).end().nextAll().text(star_1);
+        });
+
+        // 2.鼠标移出，清空评分，若点击了则保留评分
+        $("ul").on("mouseleave",function () {
+            $(this).children().text(star_1);
+            $("li.current").text(star_2).prevAll().text(star_2);
+        });
+
+        // 3.鼠标点击，确认评分 (标记点击的li)
+        $("li").on("click",function () {
+            $(this).addClass("current").siblings().removeClass("current");
+        });
+
+    });
+</script>
+<body>
+<!--☆★-->
+<div class="box">
+    <ul>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+    </ul>
+</div>
+</body>
+</html>

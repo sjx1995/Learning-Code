@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<!--v-if、v-else-if、v-else 控制流指令-->
+<div id="app">
+    <div v-if="food === 'sandwich'">
+        这是您的三明治
+    </div>
+    <div v-if="food === 'ham' || food === 'burger'">
+        这是您的汉堡
+    </div>
+    <div v-if="food === 'cola'">
+        这是您的可乐
+    </div>
+</div>
+
+<script src="../lib/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

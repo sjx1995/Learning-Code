@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button {
+            width: 80px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #eee;
+        }
+
+        .agreed {
+            background: #b8eeff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <agreement></agreement>
+</div>
+
+<!--将vue组件模板写在html中-->
+<!--点击事件clickListener，判断isAgree来添加agreed类-->
+<template id="agreement-template">
+    <button :class='{agreed:isAgree}' @click='clickListener'>
+        AGREE {{agreeCount}}
+    </button>
+</template>
+
+<script src="../lib/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app div {
+            width: 200px;
+            height: 80px;
+            border: 1px solid #eeeeee;
+            line-height: 78px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!--v-on 绑定事件指令-->
+<div id="app">
+    <button v-on:click="clickListener">点击弹窗</button>
+    <!--简写-->
+    <button @click="chickListener2">点击弹窗</button>
+
+    <div v-on="{mouseenter:entered,mouseleave:leaved}">移入/移出</div>
+    <!--阻止浏览器默认事件-->
+    <form v-on:submit.prevent="submitted">
+        <input type="text">
+        <button type="submit">提交</button>
+    </form>
+    <!--阻止冒泡事件-->
+    <div v-on:click.stop="clickStop"></div>
+</div>
+
+<script src="../lib/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

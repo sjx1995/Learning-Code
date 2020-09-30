@@ -1,8 +1,1 @@
-
-.idea/Learning-Code.iml
-.idea/misc.xml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/workspace.xml
-
-./Leetcode/node_modules/
+Leetcode/node_modules/

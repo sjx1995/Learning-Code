@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "config": {
+    "lang": "cn"
+  },
   "scripts": {
-    "test": "jest ./src/XiaoHao/Array/1480/main.test.js",
+    "test": "jest ./src/sourceCode/String/796/main.test.js",
     "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman"
   },
   "author": "Sunly",

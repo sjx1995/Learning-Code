@@ -7,7 +7,7 @@
     "lang": "cn"
   },
   "scripts": {
-    "test": "jest ./src/sourceCode/String/796/main.test.js",
+    "test": "jest ./src/sourceCode/Array/463/main.test.js",
     "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman"
   },
   "author": "Sunly",

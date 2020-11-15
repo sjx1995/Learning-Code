@@ -8,7 +8,7 @@
       "name": "Launch",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/src/sourceCode/String/28/main.test.js",
+      "program": "${workspaceRoot}/src/sourceCode/动态规划/514/main.test.js",
     },
   ]
 }

@@ -7,7 +7,7 @@
     "lang": "cn"
   },
   "scripts": {
-    "test": "jest ./src/sourceCode/动态规划/53/main.test.js",
+    "test": "jest ./src/sourceCode/Array/剑指Offer03/main.test.js",
     "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman"
   },
   "author": "Sunly",

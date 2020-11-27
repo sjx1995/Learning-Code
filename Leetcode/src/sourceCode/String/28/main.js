@@ -1,7 +1,7 @@
 /*
  * @Author: Sunly
  * @Date: 2020-11-06 18:52:17
- * @LastEditTime: 2020-11-09 10:37:48
+ * @LastEditTime: 2020-11-24 12:33:40
  * @LastEditors: Sunly
  * @Description:
  * @FilePath: \Leetcode\src\sourceCode\String\28\main.js
@@ -35,3 +35,5 @@ export const strStr = (haystack, needle) => {
 	}
 	return -1;
 };
+
+export const strStr = (haystack, needle) => {};

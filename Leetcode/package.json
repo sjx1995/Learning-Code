@@ -7,7 +7,8 @@
     "lang": "cn"
   },
   "scripts": {
-    "test": "jest ./src/sourceCode/Array/剑指Offer03/main.test.js",
+    "test": "jest ./src/sourceCode/排序/1640/main.test.js",
+    "testjs": "jest ./src/test/main.test.js",
     "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman"
   },
   "author": "Sunly",

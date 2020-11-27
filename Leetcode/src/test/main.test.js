@@ -1,13 +1,41 @@
 /*
  * @Author: Sunly
  * @Date: 2020-09-27 16:45:43
- * @LastEditTime: 2020-09-27 17:02:21
+ * @LastEditTime: 2020-11-26 15:42:04
  * @LastEditors: Sunly
  * @Description:
- * @FilePath: \leetcode\src\test\main.test.js
+ * @FilePath: \Leetcode\src\test\main.test.js
  */
-import { main } from './main'
+import { raidxSort } from "./main";
 
-test('add 1 and 2 to equal 3', () => {
-	expect(main(1, 2)).toBe(3)
-})
+test("raidxSort 1", () => {
+	expect(raidxSort([1, 4, 678, 3, 8, 9, 99, 222, 467, 3, 23, 45, 21, 78, 65, 46, 34, 4, 56, 99, 71, 23, 78])).toEqual([
+		1,
+		3,
+		3,
+		4,
+		4,
+		8,
+		9,
+		21,
+		23,
+		23,
+		34,
+		45,
+		46,
+		56,
+		65,
+		71,
+		78,
+		78,
+		99,
+		99,
+		222,
+		467,
+		678,
+	]);
+});
+
+test("raidxSort 2", () => {
+	expect(raidxSort([1])).toEqual([1]);
+});

@@ -1,53 +1,64 @@
 /*
  * @Author: Sunly
  * @Date: 2020-09-27 16:45:37
- * @LastEditTime: 2020-11-26 15:41:57
+ * @LastEditTime: 2020-12-03 10:35:56
  * @LastEditors: Sunly
  * @Description:
  * @FilePath: \Leetcode\src\test\main.js
  */
-// 冒泡排序
-export const bubbleSort = (arr) => {
-	for (let i = 0; i < arr.length - 1; i++) {
-		for (let j = 0; j < arr.length - i - 1; j++) {
-			arr[j] > arr[j + 1] ? ([arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]) : null;
+// 冒泡算法
+export const bubbleSort = (nums) => {
+	for (let i = 0; i < nums.length - 1; i++) {
+		for (let j = 0; j < nums.length - i - 1; j++) {
+			nums[j] > nums[j + 1] ? ([nums[j], nums[j + 1]] = [nums[j + 1], nums[j]]) : null;
 		}
 	}
-	return arr;
+	return nums;
 };
 
 // 选择排序
-export const selectionSort = (arr) => {
-	for (let i = 0; i < arr.length - 1; i++) {
+export const selectionSort = (nums) => {
+	for (let i = 0; i < nums.length - 1; i++) {
 		let minIndex = i;
-		for (let j = i + 1; j < arr.length; j++) {
-			minIndex = arr[j] < arr[minIndex] ? j : minIndex;
+		for (let j = i + 1; j < nums.length; j++) {
+			minIndex = nums[j] < nums[minIndex] ? j : minIndex;
 		}
-		[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+		[nums[minIndex], nums[i]] = [nums[i], nums[minIndex]];
 	}
-	return arr;
+	return nums;
 };
 
 // 插入排序
-export const insertionSort = (arr) => {
-	for (let i = 1; i < arr.length; i++) {
+export const insertionSort = (nums) => {
+	for (let i = 1; i < nums.length; i++) {
+		const current = nums[i];
 		let preIndex = i - 1;
-		const current = arr[i];
-		while (preIndex >= 0 && arr[preIndex] > current) {
-			arr[preIndex + 1] = arr[preIndex];
+		while (preIndex >= 0 && nums[preIndex] > current) {
+			nums[preIndex + 1] = nums[preIndex];
 			preIndex--;
 		}
-		arr[preIndex + 1] = current;
+		nums[preIndex + 1] = current;
 	}
-	return arr;
+	return nums;
+};
+
+// 快速排序
+export const quickSort = (nums) => {
+	if (nums.length < 2) return nums;
+	const pivodIndex = ~~(nums.length / 2);
+	const pivod = nums.splice(pivodIndex, 1)[0];
+	const left = [],
+		right = [];
+	nums.forEach((item) => (item <= pivod ? left.push(item) : right.push(item)));
+	return [...quickSort(left), pivod, ...quickSort(right)];
 };
 
 // 归并排序
-export const mergeSort = (arr) => {
-	if (arr.length < 2) return arr;
-	const middle = ~~(arr.length / 2);
-	const left = arr.slice(0, middle);
-	const right = arr.slice(middle);
+export const mergeSort = (nums) => {
+	if (nums.length < 2) return nums;
+	const mid = ~~(nums.length / 2);
+	const left = nums.slice(0, mid),
+		right = nums.slice(mid);
 	return merge(mergeSort(left), mergeSort(right));
 };
 const merge = (left, right) => {
@@ -58,39 +69,28 @@ const merge = (left, right) => {
 	return res;
 };
 
-// 快速排序
-export const quickSort = (arr) => {
-	if (arr.length < 2) return arr;
-	const pivodIndex = ~~(arr.length / 2);
-	const pivod = arr.splice(pivodIndex, 1)[0];
-	const left = [],
-		right = [];
-	arr.forEach((item) => (item <= pivod ? left.push(item) : right.push(item)));
-	return [...quickSort(left), pivod, ...quickSort(right)];
-};
-
 // 计数排序
-export const countingSort = (arr) => {
+export const countingSort = (nums) => {
 	const countingArr = [];
-	arr.forEach((item) => (countingArr[item] = countingArr[item] ? countingArr[item] + 1 : 1));
+	nums.forEach((item) => (countingArr[item] = countingArr[item] ? countingArr[item] + 1 : 1));
 	const res = [];
 	countingArr.forEach((item, index) => res.push(...new Array(item).fill(index)));
 	return res;
 };
 
 // 基数排序
-export const raidxSort = (arr) => {
-	const maxDigit = Math.max(...arr).toString().length;
-	for (let i = 0, unit = 10, base = 1; i < maxDigit; i++, unit *= 10, base *= 10) {
+export const radixSort = (nums) => {
+	const maxDigit = Math.max(...nums).toString().length;
+	for (let i = 0, base = 1, unit = 10; i < maxDigit; i++, base *= 10, unit *= 10) {
 		const buckets = [];
-		arr.forEach((item) => {
+		nums.forEach((item) => {
 			const index = ~~((item % unit) / base);
 			buckets[index] ? buckets[index].push(item) : (buckets[index] = [item]);
 		});
-		let arrIndex = 0;
+		let numsIndex = 0;
 		buckets.forEach((item) => {
-			while (item.length) arr[arrIndex++] = item.shift();
+			while (item.length) nums[numsIndex++] = item.shift();
 		});
 	}
-	return arr;
+	return nums;
 };

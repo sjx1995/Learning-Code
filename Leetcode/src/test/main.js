@@ -1,32 +1,11 @@
 /*
  * @Author: Sunly
  * @Date: 2020-09-27 16:45:37
- * @LastEditTime: 2020-12-11 12:07:33
+ * @LastEditTime: 2020-12-18 12:17:44
  * @LastEditors: Sunly
  * @Description:
  * @FilePath: \Leetcode\src\test\main.js
  */
-// 计数排序
-export const countingSort = (n) => {
-	const countingArr = [];
-	n.forEach((item) => (countingArr[item] = countingArr[item] ? countingArr[item] + 1 : 1));
-	const res = [];
-	countingArr.forEach((item, index) => res.push(...new Array(item).fill(index)));
-	return res;
-};
-
-// 选择排序
-export const selectionSort = (n) => {
-	for (let i = 0; i < n.length - 1; i++) {
-		let minIndex = i;
-		for (let j = i + 1; j < n.length; j++) {
-			minIndex = n[minIndex] > n[j] ? j : minIndex;
-		}
-		[n[minIndex], n[i]] = [n[i], n[minIndex]];
-	}
-	return n;
-};
-
 // 冒泡排序
 export const bubbleSort = (n) => {
 	for (let i = 0; i < n.length - 1; i++) {
@@ -36,44 +15,32 @@ export const bubbleSort = (n) => {
 	}
 	return n;
 };
-
-// 插入排序
-export const insertionSort = (n) => {
-	for (let i = 1; i < n.length; i++) {
-		const cur = n[i];
-		let preIndex = i - 1;
-		while (preIndex >= 0 && n[preIndex] > cur) {
-			n[preIndex + 1] = n[preIndex];
-			preIndex--;
-		}
-		n[preIndex + 1] = cur;
-	}
-	return n;
+// 快速排序
+export const quickSort = (n) => {
+	if (n.length < 2) return n;
+	const midIndex = ~~(n.length / 2);
+	const mid = n.splice(midIndex, 1)[0];
+	const left = [],
+		right = [];
+	n.forEach((t) => (t < mid ? left.push(t) : right.push(t)));
+	return [...quickSort(left), mid, ...quickSort(right)];
 };
 
-// 基数排序
-export const radixSort = (n) => {
-	const max = Math.max(...n).toString().length;
-	for (let i = 0, base = 1, unit = 10; i < max; i++, base *= 10, unit *= 10) {
-		const buckets = [];
-		n.forEach((item) => {
-			const idx = ~~((item % unit) / base);
-			buckets[idx] ? buckets[idx].push(item) : (buckets[idx] = [item]);
-		});
-		let nIdx = 0;
-		buckets.forEach((item) => {
-			while (item.length) n[nIdx++] = item.shift();
-		});
-	}
-	return n;
+// 计数排序
+export const countingArr = (n) => {
+	const ca = [];
+	n.forEach((t) => (ca[t] ? ca[t]++ : (ca[t] = 1)));
+	const res = [];
+	ca.forEach((t, i) => res.push(...new Array(t).fill(i)));
+	return res;
 };
 
 // 归并排序
 export const mergeSort = (n) => {
 	if (n.length < 2) return n;
-	const mid = ~~(n.length / 2);
-	const left = n.slice(0, mid),
-		right = n.slice(mid);
+	const m = ~~(n.length / 2);
+	const left = n.slice(0, m),
+		right = n.slice(m);
 	return merge(mergeSort(left), mergeSort(right));
 };
 export const merge = (left, right) => {
@@ -84,13 +51,67 @@ export const merge = (left, right) => {
 	return res;
 };
 
-// 快速排序
-export const quickSort = (n) => {
-	if (n.length < 2) return n;
-	const pivodIndex = ~~(n.length / 2);
-	const pivod = n.splice(pivodIndex, 1)[0];
-	const left = [],
-		right = [];
-	n.forEach((item) => (item < pivod ? left.push(item) : right.push(item)));
-	return [...quickSort(left), pivod, ...quickSort(right)];
+// 插入排序
+export const insertionSort = (n) => {
+	for (let i = 1; i < n.length; i++) {
+		const c = n[i];
+		let p = i - 1;
+		while (p >= 0 && n[p] > c) {
+			n[p + 1] = n[p];
+			p--;
+		}
+		n[p + 1] = c;
+	}
+	return n;
+};
+
+// 基数排序
+export const raidxSort = (n) => {
+	const m = Math.max(...n).toString().length;
+	for (let i = 0, b = 1, u = 10; i < m; i++, b *= 10, u *= 10) {
+		const bs = [];
+		n.forEach((t) => {
+			const idx = ~~((t % u) / b);
+			bs[idx] ? bs[idx].push(t) : (bs[idx] = [t]);
+		});
+		let id = 0;
+		bs.forEach((t) => {
+			while (t.length) n[id++] = t.shift();
+		});
+	}
+	return n;
+};
+
+// 选择排序
+export const selectionSort = (n) => {
+	for (let i = 0; i < n.length - 1; i++) {
+		let minIndex = i;
+		for (let j = i + 1; j < n.length; j++) {
+			minIndex = n[j] < n[minIndex] ? j : minIndex;
+		}
+		[n[i], n[minIndex]] = [n[minIndex], n[i]];
+	}
+	return n;
+};
+
+// 二分查找
+export const binarySearch = (a, t) => {
+	let s = 0,
+		e = a.length - 1;
+	while (s <= e) {
+		const m = ~~((s + e) / 2);
+		if (a[m] === t) return m;
+		if (a[m] > t) e = m - 1;
+		if (a[m] < t) s = m + 1;
+	}
+	return -1;
+};
+
+// 二分查找-递归
+export const binarySearch_recursion = (a, t, start = 0, end = a.length - 1) => {
+	if (start > end) return -1;
+	const m = ~~((start + end) / 2);
+	if (a[m] === t) return m;
+	if (a[m] > t) return binarySearch_recursion(a, t, start, m - 1);
+	if (a[m] < t) return binarySearch_recursion(a, t, m + 1, end);
 };

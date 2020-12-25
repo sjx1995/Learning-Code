@@ -1,7 +1,7 @@
 /*
  * @Author: Sunly
  * @Date: 2020-10-15 19:01:39
- * @LastEditTime: 2020-10-15 19:54:38
+ * @LastEditTime: 2020-12-23 10:43:48
  * @LastEditors: Sunly
  * @Description:
  * @FilePath: \Leetcode\src\sourceCode\String\387\main.js
@@ -43,4 +43,19 @@ export const firstUniqChar = (s) => {
 		}
 	}
 	return -1;
+};
+
+export const firstUniqChar = (s) => {
+	const queue = [];
+	const map = new Map();
+	Array.prototype.forEach.call(s, (ch, i) => {
+		if (map.has(ch)) {
+			if (map.get(ch)[1] !== -1) map.set(ch, -1);
+			while (queue.length && map.get(queue[0][0]) === -1) queue.shift();
+		} else {
+			queue.push([ch, i]);
+			map.set(ch, i);
+		}
+	});
+	return queue.length ? queue[0][1] : -1;
 };

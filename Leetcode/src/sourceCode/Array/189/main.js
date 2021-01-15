@@ -1,10 +1,10 @@
 /*
  * @Author: Sunly
  * @Date: 2020-09-29 11:39:05
- * @LastEditTime: 2020-09-30 14:47:45
+ * @LastEditTime: 2021-01-08 21:00:41
  * @LastEditors: Sunly
  * @Description:
- * @FilePath: \leetcode\src\XiaoHao\Array\189\main.js
+ * @FilePath: \Leetcode\src\sourceCode\Array\189\main.js
  */
 
 // pop and unshift
@@ -31,4 +31,11 @@ export const rotate_inSitu = (nums, k) => {
 export const rotate_splice = (nums, k) => {
 	const k = k % nums.length;
 	return nums.splice(0, 0, ...nums.splice(nums.length - k));
+};
+
+// 分段反转
+
+export const rotate = (nums, k) => {
+	const rotater = nums.splice(-(k % nums.length));
+	return [...rotater.reverse(), ...nums.reverse()];
 };

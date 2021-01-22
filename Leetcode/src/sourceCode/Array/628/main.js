@@ -1,17 +1,17 @@
 /*
  * @Author: Sunly
  * @Date: 2020-10-12 11:31:24
- * @LastEditTime: 2020-10-12 11:55:24
+ * @LastEditTime: 2021-01-20 11:07:42
  * @LastEditors: Sunly
  * @Description:
- * @FilePath: \Leetcode\src\XiaoHao\Array\628\main.js
+ * @FilePath: \Leetcode\src\sourceCode\Array\628\main.js
  */
 export const maximumProduct_1 = (nums) => {
 	nums.sort((a, b) => a - b);
-	let a = nums[nums.length - 1];
-	let case1 = nums[0] * nums[1];
-	let case2 = nums[nums.length - 2] * nums[nums.length - 3];
-	return case1 > case2 ? case1 * a : case2 * a;
+	return Math.max(
+		nums[0] * nums[1] * nums[nums.length - 1],
+		nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3]
+	);
 };
 
 export const maximumProduct = (nums) => {

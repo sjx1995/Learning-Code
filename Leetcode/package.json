@@ -7,7 +7,7 @@
     "lang": "cn"
   },
   "scripts": {
-    "test": "jest ./src/sourceCode/贪心/649/main.test.js",
+    "test": "jest ./src/sourceCode/Array/992/main.test.js",
     "testjs": "jest ./src/test/main.test.js",
     "debugger": "node --inspect-brk ./node_modules/jest/bin/jest --runInBand --no-cache --no-watchman"
   },

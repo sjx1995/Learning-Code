@@ -1,12 +1,12 @@
 /*
  * @Author: Sunly
  * @Date: 2020-11-18 15:09:09
- * @LastEditTime: 2020-11-18 16:41:46
+ * @LastEditTime: 2021-03-26 11:04:31
  * @LastEditors: Sunly
  * @Description:
  * @FilePath: \Leetcode\src\sourceCode\LinkedList\83\main.js
  */
-export const deleteDuplicates = (head) => {
+export const deleteDuplicates = head => {
 	let sentinel = new ListNode(NaN);
 	sentinel.next = head;
 	let prev = sentinel,
@@ -24,7 +24,7 @@ export const deleteDuplicates = (head) => {
 	return sentinel.next;
 };
 
-export const deleteDuplicates = (head) => {
+export const deleteDuplicates = head => {
 	const arr = [];
 	while (head) {
 		arr.push(head.val);
@@ -33,10 +33,23 @@ export const deleteDuplicates = (head) => {
 	const noRepetition = [...new Set(arr)];
 	let listHead = new ListNode();
 	noRepHead = listHead;
-	noRepetition.forEach((item) => {
+	noRepetition.forEach(item => {
 		listHead.next = new ListNode(item);
 		listHead = listHead.next;
 	});
 	listHead.next = null;
 	return noRepHead.next;
+};
+
+export const deleteDuplicates = head => {
+	if (!head || !head.next) return head;
+	let node = head;
+	while (node.next) {
+		if (node.val === node.next.val) {
+			node.next = node.next.next;
+		} else {
+			node = node.next;
+		}
+	}
+	return head;
 };

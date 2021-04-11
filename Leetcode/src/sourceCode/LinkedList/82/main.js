@@ -1,7 +1,7 @@
 /*
  * @Author: Sunly
  * @Date: 2021-01-21 11:32:06
- * @LastEditTime: 2021-01-21 11:56:06
+ * @LastEditTime: 2021-03-25 15:20:29
  * @LastEditors: Sunly
  * @Description:
  * @FilePath: \Leetcode\src\sourceCode\LinkedList\82\main.js
@@ -13,20 +13,17 @@
  *     this.next = (next===undefined ? null : next)
  * }
  */
-const deleteDuplicates = (head) => {
+const deleteDuplicates = head => {
 	if (!head || !head.next) return head;
-	let sentinel = new ListNode();
-	sentinel.next = head;
-	let node = sentinel;
+	let node = new ListNode(null, head);
+	let sentinel = node;
 	while (node.next && node.next.next) {
-		if (node.next.val !== node.next.next.val) {
-			node = node.next;
+		if (node.next.val === node.next.next.val) {
+			let curNode = node.next;
+			while (curNode.next && curNode.val === curNode.next.val) curNode = curNode.next;
+			node.next = curNode.next;
 		} else {
-			let notSame = node.next.next;
-			while (notSame && notSame.val === node.next.val) {
-				notSame = notSame.next;
-			}
-			node.next = notSame;
+			node = node.next;
 		}
 	}
 	return sentinel.next;
